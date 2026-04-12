@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<RootNamespace>A_MNY9M._2_Application</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\A_MNY9M.1_Core\A_MNY9M.1_Core.csproj" />
+		<PackageReference Include="Discord.Net" Version="3.18.0" />
+		<PackageReference Include="MediatR" Version="14.0.0" />
+	</ItemGroup>
+</Project>

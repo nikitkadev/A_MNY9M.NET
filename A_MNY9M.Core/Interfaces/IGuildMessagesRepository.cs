@@ -1,0 +1,10 @@
+﻿using A_MNY9M.Core.Entities.Guild.Channel.Text;
+
+namespace A_MNY9M._1_Core.Interfaces;
+
+public interface IGuildMessagesRepository
+{
+    public Task AddMessageAsync(MessageHistory message, CancellationToken token);
+    Task<IReadOnlyCollection<string?>> GetMessagesColectionByMemberAsync(ulong guildMemberDiscordId);
+
+}
