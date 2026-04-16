@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using A_MNY9M._1_Core.Interfaces;
 using A_MNY9M._3_Infrastructure.Database.EF;
 using A_MNY9M.Core.Entities;
+using A_MNY9M.Core.Interfaces.Repository;
 
 namespace A_MNY9M._3_Infrastructure.Implementations.Repositiory;
 

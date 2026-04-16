@@ -12,7 +12,6 @@ using Amnyam._4_Presentation.Interfaces;
 using Amnyam.Presentation.DiscordListeners;
 using Amnyam.Presentation.PresentationServices;
 using OpenAI.Chat;
-using A_MNY9M._1_Core.Interfaces;
 using Shared.JsonProviders;
 using A_MNY9M._2_Application.Events.ButtonExecuted;
 using A_MNY9M._2_Application.Events.Ready;
@@ -43,6 +42,7 @@ using A_MNY9M._3_Infrastructure.Providers.Implementations.Configuration.Guild;
 using A_MNY9M._3_Infrastructure.Providers.Interfaces.Configuration.Guild;
 using A_MNY9M._3_Infrastructure.Cache;
 using A_MNY9M._1_Core.JsonProviders;
+using A_MNY9M.Core.Interfaces.Repository;
 
 namespace Amnyam.Presentation.DI;
 

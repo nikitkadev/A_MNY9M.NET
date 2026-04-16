@@ -416,9 +416,5 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
-/3_Infrastructure/Configuration/Data/GuildConfigure
-/3_Infrastructure/Providers/Data/App/MlkAdminAppConfiguration.json
-/3_Infrastructure/Providers/Data/Guild/GuildCategories.json
-/3_Infrastructure/Providers/Data/Guild/GuildChannels.json
-/3_Infrastructure/Providers/Data/Guild/GuildConfiguration.json
-/3_Infrastructure/Providers/Data/Guild/GuildRoles.json
+
+/A_MNY9M.Infrastructure/Providers/Data/

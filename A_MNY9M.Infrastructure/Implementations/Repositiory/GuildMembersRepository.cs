@@ -2,9 +2,9 @@
 using Amnyam._1_Domain.Exceptions;
 using A_MNY9M._1_Core.Constants;
 using A_MNY9M._1_Core.Entities;
-using A_MNY9M._1_Core.Interfaces;
 using A_MNY9M._3_Infrastructure.Interfaces.Discord;
 using A_MNY9M._3_Infrastructure.Database.EF;
+using A_MNY9M.Core.Interfaces.Repository;
 
 namespace A_MNY9M._3_Infrastructure.Implementations.Repositiory;
 

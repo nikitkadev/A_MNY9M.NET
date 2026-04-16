@@ -1,13 +1,13 @@
-﻿using A_MNY9M._1_Core.Entities;
-using A_MNY9M.Core.Entities.Guild;
+﻿using A_MNY9M.Core.Entities.Guild.Channel.Text;
+using A_MNY9M.Core.Entities.Guild.Channel.Voice;
 
-namespace A_MNY9M._1_Core.Interfaces;
+namespace A_MNY9M.Core.Interfaces.Repository;
 
 public interface IGuildChannelsRepository
 {
     Task SyncDbVoiceChannelsWithGuildAsync(CancellationToken token = default);
 
-    Task UpsertDbTextChannelAsync(GuildChannel channel);
+    Task UpsertDbTextChannelAsync(GuildTextChannel channel);
     Task UpsertDbVoiceChannelAsync(GuildVoiceChannel channel);
 
     Task RemoveDbTextChannelAsync(ulong id);

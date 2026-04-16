@@ -15,7 +15,7 @@ public class AmnyamDbContext(DbContextOptions<AmnyamDbContext> options) : DbCont
     public DbSet<MessageHistory> GuildMessages { get; set; }
     public DbSet<VoiceSession> GuildVoiceSessions { get; set; }
     public DbSet<MemberMetric> GuildMemberMetrics { get; set; }
-    public DbSet<VoiceChannelConfiguration> RoomSettings { get; set; }
+    public DbSet<VoiceChannelSettings> RoomSettings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -238,21 +238,21 @@ public class AmnyamDbContext(DbContextOptions<AmnyamDbContext> options) : DbCont
     }
     private static void RoomSettingsModelCreating(ModelBuilder builder)
     {
-        builder.Entity<VoiceChannelConfiguration>()
+        builder.Entity<VoiceChannelSettings>()
             .ToTable("room_settings")
             .HasKey(settings => settings.GuildMemberDiscordId);
 
-        builder.Entity<VoiceChannelConfiguration>()
+        builder.Entity<VoiceChannelSettings>()
             .Property(prop => prop.VoiceRoomName)
             .HasColumnName("voiceroom_name")
             .IsRequired(false);
 
-        builder.Entity<VoiceChannelConfiguration>()
+        builder.Entity<VoiceChannelSettings>()
             .Property(prop => prop.MembersLimit)
             .HasColumnName("members_limit")
             .IsRequired(false);
 
-        builder.Entity<VoiceChannelConfiguration>()
+        builder.Entity<VoiceChannelSettings>()
             .Property(prop => prop.Region)
             .HasColumnName("region")
             .IsRequired(false);

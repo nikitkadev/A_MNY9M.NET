@@ -1,4 +1,4 @@
-﻿using A_MNY9M.Core.Enums;
+﻿using A_MNY9M.Core.Common;
 
 namespace A_MNY9M.Core.Entities.Guild.Channel.Text;
 

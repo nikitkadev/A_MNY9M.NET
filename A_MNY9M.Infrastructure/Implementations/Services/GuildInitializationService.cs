@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using A_MNY9M._1_Core.Interfaces;
 using A_MNY9M._2_Application.Interfaces.Managers;
 using A_MNY9M._2_Application.Interfaces.Services;
+using A_MNY9M.Core.Interfaces.Repository;
 
 namespace A_MNY9M._3_Infrastructure.Implementations.Services;
 

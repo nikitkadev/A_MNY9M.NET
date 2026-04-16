@@ -1,6 +1,6 @@
 ﻿using A_MNY9M.Core.Entities.Guild.Channel.Voice;
 
-namespace A_MNY9M._1_Core.Interfaces;
+namespace A_MNY9M.Core.Interfaces.Repository;
 
 public interface IGuildVoiceSessionRepository
 {

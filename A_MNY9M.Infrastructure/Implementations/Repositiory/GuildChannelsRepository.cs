@@ -2,11 +2,11 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Amnyam.Shared.JsonProviders;
-using A_MNY9M._1_Core.Interfaces;
 using A_MNY9M._1_Core.Entities;
 using A_MNY9M._3_Infrastructure.Interfaces.Discord;
 using A_MNY9M._3_Infrastructure.Database.EF;
 using A_MNY9M.Core.Entities.Guild;
+using A_MNY9M.Core.Interfaces.Repository;
 
 namespace A_MNY9M._3_Infrastructure.Implementations.Repositiory;
 
