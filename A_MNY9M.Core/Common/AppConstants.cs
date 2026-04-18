@@ -21,6 +21,7 @@ public static class CommandNameConsts
     public const string GuildMemberAnalysisCommandName = "analyze";
     public const string TestingCommandName = "testing-dev";
     public const string RemoveVoiceRoomSettings = "remove-voiceroom-settings";
+    public const string BotInfoCommandName = "amnyan-info";
 }
 
 public static class EmojeNameConsts

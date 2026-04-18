@@ -418,3 +418,4 @@ FodyWeavers.xsd
 *.msp
 
 /A_MNY9M.Infrastructure/Providers/Data/
+/A_MNY9M.Presentation/appsettings.json

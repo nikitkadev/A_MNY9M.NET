@@ -19,6 +19,32 @@ public enum RoleType
     Color
 }
 
+public enum DevelopmentStatus
+{
+    NotStarted,
+    InProgress,
+    InReview,
+    Refactoring,
+    Testing,
+    Done,
+    Archived
+}
+public enum ServiceStatus
+{
+    Unknown,
+    Healthy,
+    Degraded,
+    Unavailable
+}
+public enum BotStatus
+{
+    Starting,
+    Running,
+    Stopping,
+    Stopped,
+    Error
+}
+
 [Flags]
 public enum SentMessageType
 {

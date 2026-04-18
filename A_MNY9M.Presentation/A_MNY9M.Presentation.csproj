@@ -7,9 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup Label="Projects">
-		<ProjectReference Include="..\A_MNY9M.Core\A_MNY9M.Core.csproj" />
+		<!--<ProjectReference Include="..\A_MNY9M.Core\A_MNY9M.Core.csproj" />
 		<ProjectReference Include="..\A_MNY9M.Application\A_MNY9M.Application.csproj" />
-		<ProjectReference Include="..\A_MNY9M.Infrastructure\A_MNY9M.Infrastructure.csproj" />
+		<ProjectReference Include="..\A_MNY9M.Infrastructure\A_MNY9M.Infrastructure.csproj" />-->
+		<ProjectReference Include="..\A_MNY9M.Integration\A_MNY9M.Integration.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
