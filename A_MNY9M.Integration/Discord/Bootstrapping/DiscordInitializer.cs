@@ -2,10 +2,11 @@
 
 namespace A_MNY9M.Integration.Discord.Bootstrapping;
 
-public class DiscordInitializer : IDiscordInitializer
+public class DiscordInitializer(
+    IDiscordEventBinder eventBinder) : IDiscordInitializer
 {
-    public Task InitializeAsync()
+    public void InitializeAsync()
     {
-        throw new NotImplementedException();
+        eventBinder.Bind();
     }
 }

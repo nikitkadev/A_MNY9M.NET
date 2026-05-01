@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-using A_MNY9M.Presentation.Configuration;
 using A_MNY9M.Integration.Discord.Abstractions;
+using A_MNY9M.Presentation.Options;
 
 namespace A_MNY9M.Presentation.Hosting;
 
@@ -11,7 +11,7 @@ public class HostedService(
     ILogger<HostedService> logger,
     IDiscordClientWrapper discordClientWrapper,
     IDiscordInitializer discordInitializer,
-    IOptions<DiscordBotConfiguration> options) : IHostedService
+    IOptions<AppOption> options) : IHostedService
 {
     public async Task StartAsync(CancellationToken cancellationToken)
     {
@@ -19,9 +19,9 @@ public class HostedService(
         {
             await discordClientWrapper.DiscordSocketClient.LoginAsync(
                 Discord.TokenType.Bot,
-                options.Value.Token);
+                options.Value.BotToken);
 
-            await discordInitializer.InitializeAsync();
+            discordInitializer.InitializeAsync();
             await discordClientWrapper.DiscordSocketClient.StartAsync();
         }
         catch(Exception ex) 

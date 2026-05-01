@@ -2,5 +2,5 @@
 
 public interface IDiscordInitializer
 {
-    Task InitializeAsync();
+    void InitializeAsync();
 }

@@ -2,6 +2,7 @@
 
 using MediatR;
 
+using Discord;
 using Discord.WebSocket;
 
 using A_MNY9M.Integration.Discord.Abstractions;
@@ -13,24 +14,28 @@ public class DiscordEventBinder(
     ILogger<DiscordEventBinder> logger,
     IMediator mediator,
     IDiscordClientWrapper discordClientWrapper,
-    IDiscordCommandRouter router) : IDiscordEventBinder
+    IDiscordSlashCommandRouter router) : IDiscordEventBinder
 {
     public void Bind()
     {
-        discordClientWrapper.DiscordSocketClient.SlashCommandExecuted += OnSlashCommandExecuted;
         discordClientWrapper.DiscordSocketClient.Ready += OnReady;
+        discordClientWrapper.DiscordSocketClient.Log += OnLog;
+        discordClientWrapper.DiscordSocketClient.SlashCommandExecuted += OnSlashCommandExecuted;
     }
 
     public void Unbind()
     {
-        discordClientWrapper.DiscordSocketClient.SlashCommandExecuted -= OnSlashCommandExecuted;
         discordClientWrapper.DiscordSocketClient.Ready -= OnReady;
+        discordClientWrapper.DiscordSocketClient.Log -= OnLog;
+        discordClientWrapper.DiscordSocketClient.SlashCommandExecuted -= OnSlashCommandExecuted;
     }
 
     private async Task OnSlashCommandExecuted(SocketSlashCommand slashCommand)
     {
         try
         {
+            await slashCommand.DeferAsync(ephemeral: true);
+
             await router.RouteAsync(
                 slashCommand, 
                 CancellationToken.None);
@@ -59,5 +64,11 @@ public class DiscordEventBinder(
                 "{discordClientWrapper.DiscordSocketClient.Ready}",
                 nameof(discordClientWrapper.DiscordSocketClient.Ready));
         }
+    }
+
+    private Task OnLog(LogMessage logMessage)
+    {
+        logger.LogInformation(logMessage.Message);
+        return Task.CompletedTask;
     }
 }

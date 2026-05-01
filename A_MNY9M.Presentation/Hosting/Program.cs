@@ -1,10 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using Serilog;
-
-using A_MNY9M.Presentation.Configuration;
 
 namespace A_MNY9M.Presentation.Hosting;
 
@@ -19,6 +16,7 @@ public class Program
 
         var builder = Host.CreateApplicationBuilder();
 
+        builder.Services.AddAppConfigurations(builder.Configuration);
         builder.Services.AddCoreServices();
         builder.Services.AddApplicationServices();
         builder.Services.AddInfrastructureServices();
@@ -27,9 +25,6 @@ public class Program
 
         builder.Logging.ClearProviders();
         builder.Logging.AddSerilog();
-
-        builder.Services.Configure<DiscordBotConfiguration>(builder.Configuration.GetSection("DiscordBotConfiguration"));
-
 
         await builder.Build().RunAsync();
     }
