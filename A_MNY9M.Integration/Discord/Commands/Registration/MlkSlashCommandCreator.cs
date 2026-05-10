@@ -21,6 +21,11 @@ public class MlkSlashCommandCreator(
                     .WithName(CommandNameConsts.BotInfoCommandName)
                     .WithDescription("Сервисная информация по приложению A_MNY9M")
                     .Build(),
+
+                 new SlashCommandBuilder()
+                    .WithName(CommandNameConsts.SendhubCommandName)
+                    .WithDescription("Отправка сообщения-якоря с хабом сервера")
+                    .Build(),
             };
 
             await discordClientWrapper.MlkGuild.BulkOverwriteApplicationCommandAsync(commands);

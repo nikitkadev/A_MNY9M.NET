@@ -16,4 +16,8 @@ public class AppEmotes
 {
     public ulong GitHubIconDiscordId { get; set; }
     public ulong DotnetIconDiscordId { get; set; }
+    public ulong JettLoveIconDiscordId { get; set; }
+    public ulong SageLoveIconDiscordId { get; set; }
+    public ulong FadeLoveIconDiscordId { get; set; }
+
 }

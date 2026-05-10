@@ -34,7 +34,7 @@ public class DiscordEventBinder(
     {
         try
         {
-            await slashCommand.DeferAsync(ephemeral: true);
+            await slashCommand.DeferAsync();
 
             await router.RouteAsync(
                 slashCommand, 

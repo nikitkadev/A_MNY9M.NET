@@ -5,19 +5,21 @@ using Discord;
 using Discord.WebSocket;
 
 using A_MNY9M.Presentation.Options;
+using A_MNY9M.Application.Abstrations;
+using A_MNY9M.Integration.Confuguration;
+using A_MNY9M.Application.Configuration;
 using A_MNY9M.Integration.Discord.Client;
 using A_MNY9M.Integration.Discord.Options;
+using A_MNY9M.Integration.Discord.Providers;
 using A_MNY9M.Integration.Discord.Abstractions;
 using A_MNY9M.Integration.Discord.Bootstrapping;
-using A_MNY9M.Application.Features.System.BotInformation;
-using A_MNY9M.Integration.Discord.Events.Registration;
-using A_MNY9M.Application.Configuration;
-using A_MNY9M.Integration.Confuguration;
 using A_MNY9M.Integration.Discord.Commands.Router;
+using A_MNY9M.Integration.Discord.Events.Registration;
 using A_MNY9M.Integration.Discord.Commands.Responders;
 using A_MNY9M.Integration.Discord.Commands.Registration;
-using A_MNY9M.Application.Abstrations;
-using A_MNY9M.Integration.Discord.Providers;
+using A_MNY9M.Application.Features.System.BotInformation;
+using A_MNY9M.Application.Features.System.AnchorMessages;
+using A_MNY9M.Application.Features.System.AnchorMessages.HubMessage;
 
 namespace A_MNY9M.Presentation.Hosting;
 
@@ -41,6 +43,10 @@ public static class DependencyInjection
             .Bind(configuration.GetSection("SystemInformation"))
             .ValidateOnStart();
 
+        service.AddOptions<AnchorMessagesContent>()
+            .Bind(configuration.GetSection("AnchorMessagesContent"))
+            .ValidateOnStart();
+
         return service;
     }
     public static IServiceCollection AddCoreServices(
@@ -53,6 +59,7 @@ public static class DependencyInjection
         this IServiceCollection services)
     {
         services.AddSingleton<ISystemInformationProvider, SystemInformationProvider>();
+        services.AddSingleton<IAnchorMessageProvider, AnchorMessageProvider>();
 
         return services;
     }
@@ -82,11 +89,10 @@ public static class DependencyInjection
         services.AddSingleton<IDiscordSlashCommandRouter, DiscordSlashCommandRouter>();
         services.AddSingleton<IDiscordSlashCommandCreator, MlkSlashCommandCreator>();
         services.AddSingleton<IDiscordResponseRenderer<GetBotInfoResult>, GetBotInfoSlashCommandResponder>();
+        services.AddSingleton<IDiscordResponseRenderer<SendHubMessageResult>, HubMessageCommandResponder>();
 
         services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(ApplicationMarker).Assembly));
         services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(IntegrationMarker).Assembly));
-
-        
 
         return services;
     }

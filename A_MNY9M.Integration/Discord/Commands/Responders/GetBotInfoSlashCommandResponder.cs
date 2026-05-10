@@ -4,9 +4,9 @@ using Microsoft.Extensions.Options;
 using Discord;
 using Discord.WebSocket;
 
+using A_MNY9M.Integration.Discord.Options;
 using A_MNY9M.Integration.Discord.Abstractions;
 using A_MNY9M.Application.Features.System.BotInformation;
-using A_MNY9M.Integration.Discord.Options;
 
 namespace A_MNY9M.Integration.Discord.Commands.Responders;
 

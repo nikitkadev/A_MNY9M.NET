@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 using Serilog;
 
@@ -15,6 +16,11 @@ public class Program
             .CreateLogger();
 
         var builder = Host.CreateApplicationBuilder();
+
+        builder.Configuration.AddJsonFile(
+            "Content/anchorMessages.json", 
+            optional: true, 
+            reloadOnChange: true);
 
         builder.Services.AddAppConfigurations(builder.Configuration);
         builder.Services.AddCoreServices();

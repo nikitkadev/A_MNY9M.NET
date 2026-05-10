@@ -10,6 +10,7 @@ public static class ButtonsCustomIdConsts
 {
     public const string Authorization = "BUTTON_AUTHORIZATION";
     public const string Rules = "BUTTON_RULES";
+    public const string Roles = "BUTTON_ROLES";
     public const string Colors = "BUTTON_COLORS";
     public const string TotemAnimal = "BUTTON_TOTEMANIMAL";
     public const string AdvancedAnalysis = "BUTTONS_ADVANCED_ANALYSIS";
@@ -22,6 +23,7 @@ public static class CommandNameConsts
     public const string TestingCommandName = "testing-dev";
     public const string RemoveVoiceRoomSettings = "remove-voiceroom-settings";
     public const string BotInfoCommandName = "amnyan-info";
+    public const string SendhubCommandName = "send-hub-message";
 }
 
 public static class EmojeNameConsts
