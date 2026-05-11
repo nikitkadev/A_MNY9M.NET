@@ -7,6 +7,7 @@ using Discord.WebSocket;
 
 using A_MNY9M.Integration.Discord.Abstractions;
 using A_MNY9M.Integration.Discord.Events.Handlers.Ready;
+using A_MNY9M.Integration.Discord.Events.Handlers.GuildAvaliable;
 
 namespace A_MNY9M.Integration.Discord.Events.Registration;
 
@@ -21,6 +22,7 @@ public class DiscordEventBinder(
         discordClientWrapper.DiscordSocketClient.Ready += OnReady;
         discordClientWrapper.DiscordSocketClient.Log += OnLog;
         discordClientWrapper.DiscordSocketClient.SlashCommandExecuted += OnSlashCommandExecuted;
+        discordClientWrapper.DiscordSocketClient.GuildAvailable += OnGuildAvailable;
     }
 
     public void Unbind()
@@ -34,8 +36,6 @@ public class DiscordEventBinder(
     {
         try
         {
-            await slashCommand.DeferAsync();
-
             await router.RouteAsync(
                 slashCommand, 
                 CancellationToken.None);
@@ -70,5 +70,21 @@ public class DiscordEventBinder(
     {
         logger.LogInformation(logMessage.Message);
         return Task.CompletedTask;
+    }
+
+    private async Task OnGuildAvailable(SocketGuild socketGuild)
+    {
+        try
+        {
+            await mediator.Publish(new GuildAvaliableNotification(socketGuild));
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(
+                ex,
+                "Ошибка при попытке обработать событие " +
+                "{discordClientWrapper.DiscordSocketClient.GuildAvailable}",
+                nameof(discordClientWrapper.DiscordSocketClient.GuildAvailable));
+        }
     }
 }

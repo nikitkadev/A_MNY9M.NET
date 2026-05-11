@@ -14,8 +14,12 @@ public class DiscordClientWrapper(
 {
     public DiscordSocketClient DiscordSocketClient => discordSocketClient;
     public SocketGuild MlkGuild => discordSocketClient.GetGuild(discordOption.Value.MalenkieGuild.DiscordId);
-    public async Task<Emote> GetApplicationEmoteAsync(ulong discordId)
+    public async Task<Emote> GetApplicationEmoteAsync(ulong emoteDiscordId)
     {
-        return await discordSocketClient.GetApplicationEmoteAsync(discordId);
+        return await discordSocketClient.GetApplicationEmoteAsync(emoteDiscordId);
+    }
+    public SocketTextChannel GetSocketTextChannelAsync(ulong channelDiscordId)
+    {
+        return MlkGuild.GetTextChannel(channelDiscordId);
     }
 }

@@ -18,9 +18,9 @@ public class HubMessageCommandResponder(
         SocketSlashCommand slashCommand,
         SendHubMessageResult result)
     {
-        var jettLoveEmote = await clientWrapper.GetApplicationEmoteAsync(discordAppConfig.Value.AppEmotes.JettLoveIconDiscordId);
-        var sageLoveEmote = await clientWrapper.GetApplicationEmoteAsync(discordAppConfig.Value.AppEmotes.SageLoveIconDiscordId);
-        var fadeLoveEmote = await clientWrapper.GetApplicationEmoteAsync(discordAppConfig.Value.AppEmotes.FadeLoveIconDiscordId);
+        var emoteForRules = await clientWrapper.GetApplicationEmoteAsync(discordAppConfig.Value.AppEmotes.PixelRedStarDiscordId);
+        var emoteForRoles = await clientWrapper.GetApplicationEmoteAsync(discordAppConfig.Value.AppEmotes.PixelOrangeStarDiscordId);
+        var emoteForNameColors = await clientWrapper.GetApplicationEmoteAsync(discordAppConfig.Value.AppEmotes.PixelGreenStarDiscordId);
 
         var hubComponent = new ComponentBuilderV2()
             .WithContainer(
@@ -39,16 +39,16 @@ public class HubMessageCommandResponder(
                                 {
                                     button.WithLabel("Правила")
                                        .WithStyle(ButtonStyle.Secondary)
-                                       .WithEmote(jettLoveEmote)
+                                       .WithEmote(emoteForRules)
                                        .WithCustomId(ButtonsCustomIdConsts.Rules);
                                 });
 
                             row.WithButton(
                                 button =>
                                 {
-                                    button.WithLabel("Роли серввера")
+                                    button.WithLabel("Роли")
                                        .WithStyle(ButtonStyle.Secondary)
-                                       .WithEmote(sageLoveEmote)
+                                       .WithEmote(emoteForRoles)
                                        .WithCustomId(ButtonsCustomIdConsts.Roles);
                                 });
 
@@ -57,7 +57,7 @@ public class HubMessageCommandResponder(
                                 {
                                     button.WithLabel("Цвет имени")
                                        .WithStyle(ButtonStyle.Secondary)
-                                       .WithEmote(fadeLoveEmote)
+                                       .WithEmote(emoteForNameColors)
                                        .WithCustomId(ButtonsCustomIdConsts.Colors);
                                 });
                         });

@@ -26,12 +26,16 @@ public class DiscordSlashCommandRouter(
             {
                 case CommandNameConsts.BotInfoCommandName:
 
+                    await command.DeferAsync(ephemeral: true);
+
                     var botInfoCommandResult = await mediator.Send(new GetBotInfoCommand(), cancellationToken);
                     await botInfoResponder.RenderAsync(command, botInfoCommandResult);
 
                     return;
 
                 case CommandNameConsts.SendhubCommandName:
+
+                    await command.DeferAsync(ephemeral: false);
 
                     var hubCommandResult  = await mediator.Send(new SendHubMessageCommand(), cancellationToken);
                     await hubResponder.RenderAsync(command, hubCommandResult);
