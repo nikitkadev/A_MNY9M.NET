@@ -34,6 +34,5 @@ public class AppEmotes
     public ulong PixelGreenStarDiscordId { get; set; }
     public ulong PixelRedStarDiscordId { get; set; }
     public ulong PixelOrangeStarDiscordId { get; set; }
-
-
+    public ulong Dot { get; set; }
 }

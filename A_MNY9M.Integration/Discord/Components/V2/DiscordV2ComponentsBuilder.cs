@@ -2,19 +2,19 @@
 
 using Discord;
 
-using A_MNY9M.Application.Features.System.AnchorMessages;
 using A_MNY9M.Core.Common;
-using A_MNY9M.Integration.Discord.Abstractions;
 using A_MNY9M.Integration.Discord.Options;
+using A_MNY9M.Integration.Discord.Abstractions;
+using A_MNY9M.Application.Features.System.AnchorMessages;
 
 namespace A_MNY9M.Integration.Discord.Components.V2;
 
-public class V2Builder(
+public class DiscordV2ComponentsBuilder(
     IOptions<AnchorMessagesContent> anchorMessages,
     IOptions<DiscordOption> discordAppOptions,
-    IDiscordClientWrapper clientWrapper) : IDiscordComponentsBuilder
+    IDiscordClientWrapper clientWrapper) : IDiscordV2ComponentsBuilder
 {
-    public async Task<MessageComponent> BuildWelcomeMessageComponentsAsync()
+    public async Task<MessageComponent> BuildWelcomeMessageComponentAsync()
     {
         var emoteForRules = await clientWrapper.GetApplicationEmoteAsync(discordAppOptions.Value.AppEmotes.PixelRedStarDiscordId);
         var emoteForRoles = await clientWrapper.GetApplicationEmoteAsync(discordAppOptions.Value.AppEmotes.PixelOrangeStarDiscordId);
@@ -62,5 +62,25 @@ public class V2Builder(
                 })
 
         .Build();
+    }
+    public async Task<MessageComponent> BuildRulesMessageComponentAsync()
+    {
+        var dotEmote = await clientWrapper.GetApplicationEmoteAsync(discordAppOptions.Value.AppEmotes.Dot);
+        var rulesContent = string.Empty;
+
+        foreach(var rule in anchorMessages.Value.Rule.Content)
+        {
+            rulesContent += $"{dotEmote} {rule}\n";
+        }
+
+        return new ComponentBuilderV2()
+            .WithContainer(
+                container =>
+                {
+                    container.WithTextDisplay(anchorMessages.Value.Rule.Title);
+                    container.WithTextDisplay(anchorMessages.Value.Rule.Header);
+                    container.WithTextDisplay(rulesContent);
+
+                }).Build();
     }
 }

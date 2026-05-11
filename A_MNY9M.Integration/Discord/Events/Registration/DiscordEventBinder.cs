@@ -8,6 +8,7 @@ using Discord.WebSocket;
 using A_MNY9M.Integration.Discord.Abstractions;
 using A_MNY9M.Integration.Discord.Events.Handlers.Ready;
 using A_MNY9M.Integration.Discord.Events.Handlers.GuildAvaliable;
+using A_MNY9M.Integration.Discord.Events.Handlers.ButtonExecuted;
 
 namespace A_MNY9M.Integration.Discord.Events.Registration;
 
@@ -23,6 +24,7 @@ public class DiscordEventBinder(
         discordClientWrapper.DiscordSocketClient.Log += OnLog;
         discordClientWrapper.DiscordSocketClient.SlashCommandExecuted += OnSlashCommandExecuted;
         discordClientWrapper.DiscordSocketClient.GuildAvailable += OnGuildAvailable;
+        discordClientWrapper.DiscordSocketClient.ButtonExecuted += OnButtonExecuted;
     }
 
     public void Unbind()
@@ -30,6 +32,7 @@ public class DiscordEventBinder(
         discordClientWrapper.DiscordSocketClient.Ready -= OnReady;
         discordClientWrapper.DiscordSocketClient.Log -= OnLog;
         discordClientWrapper.DiscordSocketClient.SlashCommandExecuted -= OnSlashCommandExecuted;
+        discordClientWrapper.DiscordSocketClient.GuildAvailable -= OnGuildAvailable;
     }
 
     private async Task OnSlashCommandExecuted(SocketSlashCommand slashCommand)
@@ -85,6 +88,22 @@ public class DiscordEventBinder(
                 "Ошибка при попытке обработать событие " +
                 "{discordClientWrapper.DiscordSocketClient.GuildAvailable}",
                 nameof(discordClientWrapper.DiscordSocketClient.GuildAvailable));
+        }
+    }
+
+    private async Task OnButtonExecuted(SocketMessageComponent component)
+    {
+        try
+        {
+            await mediator.Publish(new ButtonExecutedNotification(component));
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(
+                ex,
+                "Ошибка при попытке обработать событие " +
+                "{discordClientWrapper.DiscordSocketClient.ButtonExecuted}",
+                nameof(discordClientWrapper.DiscordSocketClient.ButtonExecuted));
         }
     }
 }

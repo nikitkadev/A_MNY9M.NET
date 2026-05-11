@@ -13,6 +13,8 @@ using A_MNY9M.Integration.Discord.Options;
 using A_MNY9M.Integration.Discord.Providers;
 using A_MNY9M.Integration.Discord.Abstractions;
 using A_MNY9M.Integration.Discord.Bootstrapping;
+using A_MNY9M.Integration.Discord.Components.V2;
+using A_MNY9M.Integration.Discord.AnchorMessages;
 using A_MNY9M.Integration.Discord.Commands.Router;
 using A_MNY9M.Integration.Discord.Events.Registration;
 using A_MNY9M.Integration.Discord.Commands.Responders;
@@ -20,8 +22,6 @@ using A_MNY9M.Integration.Discord.Commands.Registration;
 using A_MNY9M.Application.Features.System.BotInformation;
 using A_MNY9M.Application.Features.System.AnchorMessages;
 using A_MNY9M.Application.Features.System.AnchorMessages.HubMessage;
-using A_MNY9M.Integration.Discord.Components.V2;
-using A_MNY9M.Integration.Discord.AnchorMessages;
 
 namespace A_MNY9M.Presentation.Hosting;
 
@@ -51,6 +51,7 @@ public static class DependencyInjection
 
         return service;
     }
+
     public static IServiceCollection AddCoreServices(
         this IServiceCollection services)
     {
@@ -92,7 +93,7 @@ public static class DependencyInjection
         services.AddSingleton<IDiscordSlashCommandCreator, MlkSlashCommandCreator>();
         services.AddSingleton<IDiscordResponseRenderer<GetBotInfoResult>, GetBotInfoSlashCommandResponder>();
         services.AddSingleton<IDiscordResponseRenderer<SendHubMessageResult>, HubMessageCommandResponder>();
-        services.AddSingleton<IDiscordComponentsBuilder, V2Builder>();
+        services.AddSingleton<IDiscordV2ComponentsBuilder, DiscordV2ComponentsBuilder>();
         services.AddSingleton<IDiscordAnchorMessageUpdater, DiscordAnchorMessageUpdater>();
 
         services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(ApplicationMarker).Assembly));

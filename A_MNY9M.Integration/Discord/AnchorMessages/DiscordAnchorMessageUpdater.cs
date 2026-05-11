@@ -9,7 +9,7 @@ namespace A_MNY9M.Integration.Discord.AnchorMessages;
 
 public class DiscordAnchorMessageUpdater(
     IOptions<DiscordOption> discordAppOptions,
-    IDiscordComponentsBuilder discordComponentsBuilder,
+    IDiscordV2ComponentsBuilder discordComponentsBuilder,
     IDiscordClientWrapper clientWrapper) : IDiscordAnchorMessageUpdater
 {
     public async Task UpdateAsync()
@@ -19,7 +19,7 @@ public class DiscordAnchorMessageUpdater(
 
     private async Task UpdateWelcomeMessageAsync()
     {
-        var components = await discordComponentsBuilder.BuildWelcomeMessageComponentsAsync();
+        var components = await discordComponentsBuilder.BuildWelcomeMessageComponentAsync();
         var channel = clientWrapper.MlkGuild.GetTextChannel(discordAppOptions.Value.AnchorChannels.HubDiscordId);
 
         if(channel is null)
