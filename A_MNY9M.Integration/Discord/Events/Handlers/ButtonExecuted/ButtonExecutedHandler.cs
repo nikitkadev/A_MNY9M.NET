@@ -17,6 +17,7 @@ public class ButtonExecutedHandler(
             case ButtonsCustomIdConsts.Rules:
 
                 await notification.Component.DeferAsync();
+
                 var rulesComponent = await discordV2ComponentsBuilder.BuildRulesMessageComponentAsync();
 
                 await notification.Component.FollowupAsync(
@@ -25,7 +26,20 @@ public class ButtonExecutedHandler(
 
                 break;
 
+            case ButtonsCustomIdConsts.Roles:
+
+                await notification.Component.DeferAsync();
+
+                var rolesComponent = await discordV2ComponentsBuilder.BuildRolesMessageComponentAsync();
+
+                await notification.Component.FollowupAsync(
+                    components: rolesComponent,
+                    ephemeral: true);
+
+                break;
+
             default:
+
                 await notification.Component.DeferAsync();
                 await notification.Component.FollowupAsync(
                     "Пук",

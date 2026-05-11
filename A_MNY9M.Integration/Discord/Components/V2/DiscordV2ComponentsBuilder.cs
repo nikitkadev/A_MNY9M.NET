@@ -12,7 +12,8 @@ namespace A_MNY9M.Integration.Discord.Components.V2;
 public class DiscordV2ComponentsBuilder(
     IOptions<AnchorMessagesContent> anchorMessages,
     IOptions<DiscordOption> discordAppOptions,
-    IDiscordClientWrapper clientWrapper) : IDiscordV2ComponentsBuilder
+    IDiscordClientWrapper clientWrapper,
+    IDiscordSelectionMenusBuilder selectionMenusBuilder) : IDiscordV2ComponentsBuilder
 {
     public async Task<MessageComponent> BuildWelcomeMessageComponentAsync()
     {
@@ -44,7 +45,7 @@ public class DiscordV2ComponentsBuilder(
                             row.WithButton(
                                 button =>
                                 {
-                                    button.WithLabel("Роли")
+                                    button.WithLabel("Игровые роли")
                                        .WithStyle(ButtonStyle.Secondary)
                                        .WithEmote(emoteForRoles)
                                        .WithCustomId(ButtonsCustomIdConsts.Roles);
@@ -68,7 +69,7 @@ public class DiscordV2ComponentsBuilder(
         var dotEmote = await clientWrapper.GetApplicationEmoteAsync(discordAppOptions.Value.AppEmotes.Dot);
         var rulesContent = string.Empty;
 
-        foreach(var rule in anchorMessages.Value.Rule.Content)
+        foreach(var rule in anchorMessages.Value.Rules.Content)
         {
             rulesContent += $"{dotEmote} {rule}\n";
         }
@@ -77,10 +78,31 @@ public class DiscordV2ComponentsBuilder(
             .WithContainer(
                 container =>
                 {
-                    container.WithTextDisplay(anchorMessages.Value.Rule.Title);
-                    container.WithTextDisplay(anchorMessages.Value.Rule.Header);
+                    container.WithTextDisplay(anchorMessages.Value.Rules.Title);
+                    container.WithTextDisplay(anchorMessages.Value.Rules.Header);
                     container.WithTextDisplay(rulesContent);
 
                 }).Build();
+    }
+    public async Task<MessageComponent> BuildRolesMessageComponentAsync()
+    {
+        var menu = await selectionMenusBuilder.RolesSelectionMenu();
+
+        return new ComponentBuilderV2()
+            .WithContainer(
+                container =>
+                {
+                    container.WithTextDisplay(anchorMessages.Value.Roles.Title);
+                    container.WithTextDisplay(anchorMessages.Value.Roles.Header);
+                    container.WithTextDisplay(string.Join("\n", anchorMessages.Value.Roles.Content));
+
+                    container.WithSeparator(SeparatorSpacingSize.Large);
+
+                    container.WithActionRow(row =>
+                    {
+                        row.WithSelectMenu(menu);
+                    });
+                })
+            .Build();
     }
 }

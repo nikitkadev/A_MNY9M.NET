@@ -9,6 +9,7 @@ using A_MNY9M.Integration.Discord.Abstractions;
 using A_MNY9M.Integration.Discord.Events.Handlers.Ready;
 using A_MNY9M.Integration.Discord.Events.Handlers.GuildAvaliable;
 using A_MNY9M.Integration.Discord.Events.Handlers.ButtonExecuted;
+using A_MNY9M.Integration.Discord.Events.Handlers.SelectMenuExecuted;
 
 namespace A_MNY9M.Integration.Discord.Events.Registration;
 
@@ -25,6 +26,7 @@ public class DiscordEventBinder(
         discordClientWrapper.DiscordSocketClient.SlashCommandExecuted += OnSlashCommandExecuted;
         discordClientWrapper.DiscordSocketClient.GuildAvailable += OnGuildAvailable;
         discordClientWrapper.DiscordSocketClient.ButtonExecuted += OnButtonExecuted;
+        discordClientWrapper.DiscordSocketClient.SelectMenuExecuted += OnSelectMenuExecuted;
     }
 
     public void Unbind()
@@ -104,6 +106,22 @@ public class DiscordEventBinder(
                 "Ошибка при попытке обработать событие " +
                 "{discordClientWrapper.DiscordSocketClient.ButtonExecuted}",
                 nameof(discordClientWrapper.DiscordSocketClient.ButtonExecuted));
+        }
+    }
+
+    private async Task OnSelectMenuExecuted(SocketMessageComponent component)
+    {
+        try
+        {
+            await mediator.Publish(new SelectMenuExecutedNotification(component));
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(
+                ex,
+                "Ошибка при попытке обработать событие " +
+                "{discordClientWrapper.DiscordSocketClient.SelectMenuExecuted}",
+                nameof(discordClientWrapper.DiscordSocketClient.SelectMenuExecuted));
         }
     }
 }

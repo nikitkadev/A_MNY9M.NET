@@ -6,4 +6,5 @@ public interface IDiscordV2ComponentsBuilder
 {
     Task<MessageComponent> BuildWelcomeMessageComponentAsync();
     Task<MessageComponent> BuildRulesMessageComponentAsync();
+    Task<MessageComponent> BuildRolesMessageComponentAsync();
 }

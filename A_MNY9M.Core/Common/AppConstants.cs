@@ -40,4 +40,10 @@ public static class EmojeNameConsts
 public static class SelectionMenuIdConsts
 {
     public const string ColorsMenu = "GUILD_NAMECOLOR_CHANGE";
+    public const string RolesMenu = "GUILD_ROLES_MENU_ID";
+}
+
+public static class SelectionMenuValues
+{
+    public const string RemoveAll = "REMOVE_ALL";
 }

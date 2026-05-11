@@ -21,7 +21,9 @@ using A_MNY9M.Integration.Discord.Commands.Responders;
 using A_MNY9M.Integration.Discord.Commands.Registration;
 using A_MNY9M.Application.Features.System.BotInformation;
 using A_MNY9M.Application.Features.System.AnchorMessages;
+using A_MNY9M.Integration.Discord.Components.SelectionMenus;
 using A_MNY9M.Application.Features.System.AnchorMessages.HubMessage;
+using A_MNY9M.Integration.Discord.Managers;
 
 namespace A_MNY9M.Presentation.Hosting;
 
@@ -95,6 +97,8 @@ public static class DependencyInjection
         services.AddSingleton<IDiscordResponseRenderer<SendHubMessageResult>, HubMessageCommandResponder>();
         services.AddSingleton<IDiscordV2ComponentsBuilder, DiscordV2ComponentsBuilder>();
         services.AddSingleton<IDiscordAnchorMessageUpdater, DiscordAnchorMessageUpdater>();
+        services.AddSingleton<IDiscordSelectionMenusBuilder, DiscordSelectionMenusBuilder>();
+        services.AddSingleton<IDiscordRolesManager, DiscordRolesManager>();
 
         services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(ApplicationMarker).Assembly));
         services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(IntegrationMarker).Assembly));

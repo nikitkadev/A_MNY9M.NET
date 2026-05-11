@@ -12,7 +12,30 @@ public class MalenkieGuild
 {
     public string Name { get; set; } = string.Empty;
     public ulong DiscordId { get; set; }
+    public SelectedRoles SelectedRoles { get; set; } = new();
+    public TestingSelectedRoles TestingSelectedRoles { get; set; } = new();
 }
+
+public class SelectedRoles
+{
+    public ulong DestinyDiscordId { get; set; }
+    public ulong GachaDiscordId { get; set; }
+    public ulong ValorantDiscordId { get; set; }
+    public ulong MarathonDiscordId { get; set; }
+    public ulong TarkovDiscordId { get; set; }
+
+}
+
+public class TestingSelectedRoles
+{
+    public ulong DestinyDiscordId { get; set; }
+    public ulong GachaDiscordId { get; set; }
+    public ulong ValorantDiscordId { get; set; }
+    public ulong MarathonDiscordId { get; set; }
+    public ulong TarkovDiscordId { get; set; }
+
+}
+
 
 public class AnchorChannels
 {
@@ -34,5 +57,7 @@ public class AppEmotes
     public ulong PixelGreenStarDiscordId { get; set; }
     public ulong PixelRedStarDiscordId { get; set; }
     public ulong PixelOrangeStarDiscordId { get; set; }
+    public ulong ValorantIconDiscordId { get; set; }
+    public ulong GenshinPullDiscordId { get; set; }
     public ulong Dot { get; set; }
 }
