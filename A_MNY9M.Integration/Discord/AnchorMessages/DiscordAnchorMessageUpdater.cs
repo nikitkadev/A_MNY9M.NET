@@ -8,7 +8,7 @@ using A_MNY9M.Integration.Discord.Options;
 namespace A_MNY9M.Integration.Discord.AnchorMessages;
 
 public class DiscordAnchorMessageUpdater(
-    IOptions<DiscordOption> discordAppOptions,
+    IOptions<MalenkieGuildOption> malenkieOptions,
     IDiscordV2ComponentsBuilder discordComponentsBuilder,
     IDiscordClientWrapper clientWrapper) : IDiscordAnchorMessageUpdater
 {
@@ -19,15 +19,15 @@ public class DiscordAnchorMessageUpdater(
 
     private async Task UpdateWelcomeMessageAsync()
     {
-        var components = await discordComponentsBuilder.BuildWelcomeMessageComponentAsync();
-        var channel = clientWrapper.MlkGuild.GetTextChannel(discordAppOptions.Value.AnchorChannels.HubDiscordId);
+        var components = await discordComponentsBuilder.BuildHubMessageComponentAsync();
+        var channel = clientWrapper.MlkGuild.GetTextChannel(malenkieOptions.Value.AnchorMessages.ChannelsIn["HubDiscordId"]);
 
         if(channel is null)
         {
             return;
         }
 
-        if(await channel.GetMessageAsync(discordAppOptions.Value.AnchorMessages.WelcomeDiscordId) is IUserMessage message)
+        if(await channel.GetMessageAsync(malenkieOptions.Value.AnchorMessages.Ids["WelcomeDiscordId"]) is IUserMessage message)
         {
             await message.ModifyAsync(
                 async message =>

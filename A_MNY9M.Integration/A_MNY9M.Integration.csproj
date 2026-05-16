@@ -8,6 +8,7 @@
 
 	<ItemGroup>
 	  <None Include="Discord\Components\SelectionMenus\DiscordSelectionMenusBuilder.cs" />
+	  <None Include="Discord\Options\MalenkieGuildOption.cs" />
 	</ItemGroup>
 	
 	<ItemGroup Label="Projects">

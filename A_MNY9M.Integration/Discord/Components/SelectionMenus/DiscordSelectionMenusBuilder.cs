@@ -9,54 +9,113 @@ using A_MNY9M.Integration.Discord.Abstractions;
 namespace A_MNY9M.Integration.Discord.Components.SelectionMenus;
 
 public class DiscordSelectionMenusBuilder(
-    IOptions<DiscordOption> discordAppOptions,
-    IDiscordClientWrapper discordClientWrapper) : IDiscordSelectionMenusBuilder
+    IOptions<MalenkieGuildOption> malenkieOptions,
+    IDiscordClientWrapper clientWrapper) : IDiscordSelectionMenusBuilder
 {
-    public async Task<SelectMenuBuilder> RolesSelectionMenu()
+    public async Task<SelectMenuBuilder> GetRolesSetterMenuBuilderAsync()
     {
-        var valorantIconEmote = await discordClientWrapper.GetApplicationEmoteAsync(discordAppOptions.Value.AppEmotes.ValorantIconDiscordId);
-        var marathonIconEmote = await discordClientWrapper.GetApplicationEmoteAsync(discordAppOptions.Value.AppEmotes.GenshinPullDiscordId);
-        var destinyIconEmote = await discordClientWrapper.GetApplicationEmoteAsync(discordAppOptions.Value.AppEmotes.ValorantIconDiscordId);
-        var tarkovIconEmote = await discordClientWrapper.GetApplicationEmoteAsync(discordAppOptions.Value.AppEmotes.GenshinPullDiscordId);
-        var gachaIconEmote = await discordClientWrapper.GetApplicationEmoteAsync(discordAppOptions.Value.AppEmotes.GenshinPullDiscordId);
-
         return new SelectMenuBuilder()
             .WithCustomId(SelectionMenuIdConsts.RolesMenu)
-
-            .WithPlaceholder("Выберите игровые роли")
+            .WithPlaceholder("Выберите желанную роли")
+            .WithMinValues(1)
+            .WithMaxValues(6)
             .WithOptions([
 
                 new SelectMenuOptionBuilder()
-                    .WithLabel("очиᴄᴛиᴛь ʙᴄᴇ")
-                    .WithValue(SelectionMenuValues.RemoveAll),
-
-                new SelectMenuOptionBuilder()
-                    .WithLabel("Valorant")
-                    .WithValue(discordAppOptions.Value.MalenkieGuild.TestingSelectedRoles.ValorantDiscordId.ToString())
-                    .WithEmote(valorantIconEmote),
-
-                new SelectMenuOptionBuilder()
-                    .WithLabel("Marathon")
-                    .WithValue(discordAppOptions.Value.MalenkieGuild.TestingSelectedRoles.MarathonDiscordId.ToString())
-                    .WithEmote(marathonIconEmote),
-
-                new SelectMenuOptionBuilder()
                     .WithLabel("Destiny 2")
-                    .WithValue(discordAppOptions.Value.MalenkieGuild.TestingSelectedRoles.DestinyDiscordId.ToString())
-                    .WithEmote(destinyIconEmote),
-
-                new SelectMenuOptionBuilder()
-                    .WithLabel("Tarkov")
-                    .WithValue(discordAppOptions.Value.MalenkieGuild.TestingSelectedRoles.TarkovDiscordId.ToString())
-                    .WithEmote(tarkovIconEmote),
+                    .WithValue(malenkieOptions.Value.TestSelectedCategoryRoles.RoleIds["DestinyDiscordId"].ToString())
+                    .WithEmote(await clientWrapper.GetApplicationEmoteAsync(
+                        malenkieOptions.Value.TestSelectedCategoryRoles.EmoteIds["DestinyDiscordId"])),
 
                 new SelectMenuOptionBuilder()
                     .WithLabel("Gacha Depper")
-                    .WithValue(discordAppOptions.Value.MalenkieGuild.TestingSelectedRoles.GachaDiscordId.ToString())
-                    .WithEmote(gachaIconEmote),
+                    .WithValue(malenkieOptions.Value.TestSelectedCategoryRoles.RoleIds["GachaDiscordId"].ToString())
+                    .WithEmote(await clientWrapper.GetApplicationEmoteAsync(
+                        malenkieOptions.Value.TestSelectedCategoryRoles.EmoteIds["GachaDiscordId"])),
 
-            ])
-            .WithMinValues(1)
-            .WithMaxValues(6);
+                new SelectMenuOptionBuilder()
+                    .WithLabel("Valorant")
+                    .WithValue(malenkieOptions.Value.TestSelectedCategoryRoles.RoleIds["ValorantDiscordId"].ToString())
+                    .WithEmote(await clientWrapper.GetApplicationEmoteAsync(
+                        malenkieOptions.Value.TestSelectedCategoryRoles.EmoteIds["ValorantDiscordId"])),
+
+                new SelectMenuOptionBuilder()
+                    .WithLabel("Marathon")
+                    .WithValue(malenkieOptions.Value.TestSelectedCategoryRoles.RoleIds["MarathonDiscordId"].ToString())
+                    .WithEmote(await clientWrapper.GetApplicationEmoteAsync(
+                        malenkieOptions.Value.TestSelectedCategoryRoles.EmoteIds["MarathonDiscordId"])),
+
+                new SelectMenuOptionBuilder()
+                    .WithLabel("Tarkov")
+                    .WithValue(malenkieOptions.Value.TestSelectedCategoryRoles.RoleIds["TarkovDiscordId"].ToString())
+                    .WithEmote(await clientWrapper.GetApplicationEmoteAsync(
+                        malenkieOptions.Value.TestSelectedCategoryRoles.EmoteIds["TarkovDiscordId"])),
+
+                new SelectMenuOptionBuilder()
+                    .WithLabel("очиᴄᴛиᴛь ʙᴄᴇ")
+                    .WithValue(SelectionMenuValues.RemoveAll)
+            ]);
+    }
+
+    public async Task<SelectMenuBuilder> GetColorSwitcherMenuBuilderAsync()
+    {
+        return new SelectMenuBuilder()
+            .WithCustomId(SelectionMenuIdConsts.ColorsMenu)
+            .WithPlaceholder("Выберите самый крутой цвет")
+            .WithOptions([
+                    
+                new SelectMenuOptionBuilder()
+                    .WithLabel("Malenkie Lime")
+                    .WithValue(malenkieOptions.Value.TestSelectedColorRoles.RoleIds["Green"].ToString())
+                    .WithEmote(await clientWrapper.GetApplicationEmoteAsync(
+                        malenkieOptions.Value.TestSelectedColorRoles.EmoteIds["Green"])),
+
+                new SelectMenuOptionBuilder()
+                    .WithLabel("Malenkie Red")
+                    .WithValue(malenkieOptions.Value.TestSelectedColorRoles.RoleIds["Red"].ToString())
+                    .WithEmote(await clientWrapper.GetApplicationEmoteAsync(
+                        malenkieOptions.Value.TestSelectedColorRoles.EmoteIds["Red"])),
+
+                new SelectMenuOptionBuilder()
+                    .WithLabel("Malenkie Blue")
+                    .WithValue(malenkieOptions.Value.TestSelectedColorRoles.RoleIds["Blue"].ToString())
+                    .WithEmote(await clientWrapper.GetApplicationEmoteAsync(
+                        malenkieOptions.Value.TestSelectedColorRoles.EmoteIds["Blue"])),
+
+                new SelectMenuOptionBuilder()
+                    .WithLabel("Malenkie Orange")
+                    .WithValue(malenkieOptions.Value.TestSelectedColorRoles.RoleIds["Orange"].ToString())
+                    .WithEmote(await clientWrapper.GetApplicationEmoteAsync(
+                        malenkieOptions.Value.TestSelectedColorRoles.EmoteIds["Orange"])),
+
+                new SelectMenuOptionBuilder()
+                    .WithLabel("Malenkie Yellow")
+                    .WithValue(malenkieOptions.Value.TestSelectedColorRoles.RoleIds["Yellow"].ToString())
+                    .WithEmote(await clientWrapper.GetApplicationEmoteAsync(
+                        malenkieOptions.Value.TestSelectedColorRoles.EmoteIds["Yellow"])),
+
+                new SelectMenuOptionBuilder()
+                    .WithLabel("Malenkie Purple")
+                    .WithValue(malenkieOptions.Value.TestSelectedColorRoles.RoleIds["Purple"].ToString())
+                    .WithEmote(await clientWrapper.GetApplicationEmoteAsync(
+                        malenkieOptions.Value.TestSelectedColorRoles.EmoteIds["Purple"])),
+                    
+                new SelectMenuOptionBuilder()
+                    .WithLabel("Malenkie Pink")
+                    .WithValue(malenkieOptions.Value.TestSelectedColorRoles.RoleIds["Pink"].ToString())
+                    .WithEmote(await clientWrapper.GetApplicationEmoteAsync(
+                        malenkieOptions.Value.TestSelectedColorRoles.EmoteIds["Pink"])),
+
+                new SelectMenuOptionBuilder()
+                    .WithLabel("Malenkie Silver")
+                    .WithValue(malenkieOptions.Value.TestSelectedColorRoles.RoleIds["Silver"].ToString())
+                    .WithEmote(await clientWrapper.GetApplicationEmoteAsync(
+                        malenkieOptions.Value.TestSelectedColorRoles.EmoteIds["Silver"])),
+
+                 new SelectMenuOptionBuilder()
+                    .WithLabel("удᴀᴧиᴛь цʙᴇᴛ")
+                    .WithValue(SelectionMenuValues.RemoveAll)
+
+            ]);
     }
 }

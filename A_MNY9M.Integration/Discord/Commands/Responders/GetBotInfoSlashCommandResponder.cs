@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 using Discord;
 using Discord.WebSocket;
@@ -11,8 +10,6 @@ using A_MNY9M.Application.Features.System.BotInformation;
 namespace A_MNY9M.Integration.Discord.Commands.Responders;
 
 public class GetBotInfoSlashCommandResponder(
-    IOptions<DiscordOption> discordAppConfig,
-    IDiscordClientWrapper discordClientWrapper,
     ILogger<GetBotInfoSlashCommandResponder> logger) : IDiscordResponseRenderer<GetBotInfoResult>
 {
     public async Task RenderAsync(
@@ -21,14 +18,12 @@ public class GetBotInfoSlashCommandResponder(
     {
         try
         {
-            var dotnetIcon = await discordClientWrapper.GetApplicationEmoteAsync(discordAppConfig.Value.AppEmotes.DotnetIconDiscordId);
-
             var component = new ComponentBuilderV2()
                 .WithContainer(
                     container =>
                     {
                         container.WithTextDisplay(
-                            $"Системная информация **{result.AppName}** {dotnetIcon}");
+                            $"Системная информация **{result.AppName}** <:dotnet_icon:1495296204328796292>");
 
                         container.WithTextDisplay(
                             $"Версия **{result.Version}**\n" +

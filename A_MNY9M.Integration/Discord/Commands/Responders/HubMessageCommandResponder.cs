@@ -11,17 +11,13 @@ using A_MNY9M.Application.Features.System.AnchorMessages.HubMessage;
 namespace A_MNY9M.Integration.Discord.Commands.Responders;
 
 public class HubMessageCommandResponder(
-    IOptions<DiscordOption> discordAppConfig,
+    IOptions<MalenkieGuildOption> malenkieOptions,
     IDiscordClientWrapper clientWrapper) : IDiscordResponseRenderer<SendHubMessageResult>
 {
     public async Task RenderAsync(
         SocketSlashCommand slashCommand,
         SendHubMessageResult result)
     {
-        var emoteForRules = await clientWrapper.GetApplicationEmoteAsync(discordAppConfig.Value.AppEmotes.PixelRedStarDiscordId);
-        var emoteForRoles = await clientWrapper.GetApplicationEmoteAsync(discordAppConfig.Value.AppEmotes.PixelOrangeStarDiscordId);
-        var emoteForNameColors = await clientWrapper.GetApplicationEmoteAsync(discordAppConfig.Value.AppEmotes.PixelGreenStarDiscordId);
-
         var hubComponent = new ComponentBuilderV2()
             .WithContainer(
                 container =>
@@ -35,29 +31,29 @@ public class HubMessageCommandResponder(
                         row =>
                         {
                             row.WithButton(
-                                button =>
+                                async button =>
                                 {
                                     button.WithLabel("Правила")
                                        .WithStyle(ButtonStyle.Secondary)
-                                       .WithEmote(emoteForRules)
+                                       .WithEmote(await clientWrapper.GetApplicationEmoteAsync(malenkieOptions.Value.Emotes.ForGuildHub["PixelPinkHeartDiscordId"]))
                                        .WithCustomId(ButtonsCustomIdConsts.Rules);
                                 });
 
                             row.WithButton(
-                                button =>
+                                async button =>
                                 {
                                     button.WithLabel("Роли")
                                        .WithStyle(ButtonStyle.Secondary)
-                                       .WithEmote(emoteForRoles)
+                                       .WithEmote(await clientWrapper.GetApplicationEmoteAsync(malenkieOptions.Value.Emotes.ForGuildHub["PixelPinkHeartsDiscordId"]))
                                        .WithCustomId(ButtonsCustomIdConsts.Roles);
                                 });
 
                             row.WithButton(
-                                button =>
+                                async button =>
                                 {
                                     button.WithLabel("Цвет имени")
                                        .WithStyle(ButtonStyle.Secondary)
-                                       .WithEmote(emoteForNameColors)
+                                       .WithEmote(await clientWrapper.GetApplicationEmoteAsync(malenkieOptions.Value.Emotes.ForGuildHub["PixelRedHeartDiscordId"]))
                                        .WithCustomId(ButtonsCustomIdConsts.Colors);
                                 });
                         });

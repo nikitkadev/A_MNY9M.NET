@@ -9,7 +9,6 @@ using A_MNY9M.Application.Abstrations;
 using A_MNY9M.Integration.Confuguration;
 using A_MNY9M.Application.Configuration;
 using A_MNY9M.Integration.Discord.Client;
-using A_MNY9M.Integration.Discord.Options;
 using A_MNY9M.Integration.Discord.Providers;
 using A_MNY9M.Integration.Discord.Abstractions;
 using A_MNY9M.Integration.Discord.Bootstrapping;
@@ -24,6 +23,7 @@ using A_MNY9M.Application.Features.System.AnchorMessages;
 using A_MNY9M.Integration.Discord.Components.SelectionMenus;
 using A_MNY9M.Application.Features.System.AnchorMessages.HubMessage;
 using A_MNY9M.Integration.Discord.Managers;
+using A_MNY9M.Integration.Discord.Options;
 
 namespace A_MNY9M.Presentation.Hosting;
 
@@ -38,9 +38,9 @@ public static class DependencyInjection
             .Validate(x => !string.IsNullOrEmpty(x.BotToken), "Токен не должен быть пустым")
             .ValidateOnStart();
 
-        service.AddOptions<DiscordOption>()
-            .Bind(configuration.GetSection("DiscordOption"))
-            .Validate(x => x.MalenkieGuild.DiscordId != 0, "DiscordId сервера не должен быть равен нулю")
+        service.AddOptions<MalenkieGuildOption>()
+            .Bind(configuration.GetSection("MalenkieGuild"))
+            .Validate(x => x.DiscordId != 0, "DiscordId сервера не должен быть равен нулю")
             .ValidateOnStart();
 
         service.AddOptions<SystemInformationDto>()

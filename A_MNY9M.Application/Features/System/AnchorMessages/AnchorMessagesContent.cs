@@ -5,6 +5,7 @@ public class AnchorMessagesContent
     public MessageContent Hub { get; set; } = new();
     public MessageContent Rules { get; set; } = new();
     public MessageContent Roles { get; set; } = new();
+    public MessageContent ColorSwitch { get; set; } = new();
 }
 
 public class MessageContent

@@ -26,15 +26,11 @@ public static class CommandNameConsts
     public const string SendhubCommandName = "send-hub-message";
 }
 
-public static class EmojeNameConsts
+public static class EmoteNameFromAppSettingsConsts
 {
-    public const string Dot = "grey_dot";
-    public const string Primogem = "emodziprimogem";
-    public const string Authorization = "emodzizerotwoheartlove";
-    public const string Rules = "emodzizeroshrug";
-    public const string Color = "emodzizerotwouwu";
-    public const string Link = "emodziprimogem";
-    public const string TotemAnimal = "emodziintertwinedfate";
+    public const string Rules = "PixelPinkHeartDiscordId";
+    public const string Roles = "PixelPinkHeartsDiscordId";
+    public const string NameColors = "PixelRedHeartDiscordId";
 }
 
 public static class SelectionMenuIdConsts
@@ -46,4 +42,10 @@ public static class SelectionMenuIdConsts
 public static class SelectionMenuValues
 {
     public const string RemoveAll = "REMOVE_ALL";
+}
+
+public static class MarkdownEmote
+{
+    public const string Dot = "<:white_dot:1505130882837512292>";
+    public const string CoolDogie = "<:cool_dogie:1505171307954835466>";
 }

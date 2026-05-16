@@ -4,5 +4,6 @@ namespace A_MNY9M.Integration.Discord.Abstractions;
 
 public interface IDiscordSelectionMenusBuilder
 {
-    Task<SelectMenuBuilder> RolesSelectionMenu();
+    Task<SelectMenuBuilder> GetRolesSetterMenuBuilderAsync();
+    Task<SelectMenuBuilder> GetColorSwitcherMenuBuilderAsync();
 }

@@ -4,5 +4,6 @@ namespace A_MNY9M.Integration.Discord.Abstractions;
 
 public interface IDiscordRolesManager
 {
-    Task UploadUserRolesAsync(SocketGuildUser user, IReadOnlyCollection<string> values);
+    Task UploadUserSelectedCategoryRolesAsync(SocketGuildUser user, IReadOnlyCollection<string> values);
+    Task UploadUserSelectedNameColorAsync(SocketGuildUser user, IReadOnlyCollection<string> values);
 }

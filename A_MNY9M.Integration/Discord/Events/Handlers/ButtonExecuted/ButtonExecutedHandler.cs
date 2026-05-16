@@ -38,11 +38,24 @@ public class ButtonExecutedHandler(
 
                 break;
 
+            case ButtonsCustomIdConsts.Colors:
+
+                await notification.Component.DeferAsync();
+
+                var colorSwitcherComponent = await discordV2ComponentsBuilder.BuildColorSwitcherMessageComponentAsync();
+
+                await notification.Component.FollowupAsync(
+                    components: colorSwitcherComponent,
+                    ephemeral: true);
+
+                break;
+
             default:
 
                 await notification.Component.DeferAsync();
+
                 await notification.Component.FollowupAsync(
-                    "Пук",
+                    "А ведь знаете, разраб давн",
                     ephemeral: true);
 
                 break;
