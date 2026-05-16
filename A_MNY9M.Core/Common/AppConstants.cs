@@ -14,6 +14,7 @@ public static class ButtonsCustomIdConsts
     public const string Colors = "BUTTON_COLORS";
     public const string TotemAnimal = "BUTTON_TOTEMANIMAL";
     public const string AdvancedAnalysis = "BUTTONS_ADVANCED_ANALYSIS";
+    public const string Predict = "BUTTONS_PREDICT";
 }
 
 public static class CommandNameConsts

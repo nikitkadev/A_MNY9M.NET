@@ -10,6 +10,7 @@ using A_MNY9M.Integration.Discord.Events.Handlers.Ready;
 using A_MNY9M.Integration.Discord.Events.Handlers.GuildAvaliable;
 using A_MNY9M.Integration.Discord.Events.Handlers.ButtonExecuted;
 using A_MNY9M.Integration.Discord.Events.Handlers.SelectMenuExecuted;
+using A_MNY9M.Integration.Discord.Events.Handlers.UserJoined;
 
 namespace A_MNY9M.Integration.Discord.Events.Registration;
 
@@ -27,6 +28,7 @@ public class DiscordEventBinder(
         discordClientWrapper.DiscordSocketClient.GuildAvailable += OnGuildAvailable;
         discordClientWrapper.DiscordSocketClient.ButtonExecuted += OnButtonExecuted;
         discordClientWrapper.DiscordSocketClient.SelectMenuExecuted += OnSelectMenuExecuted;
+        discordClientWrapper.DiscordSocketClient.UserJoined += OnUserJoined;
     }
 
     public void Unbind()
@@ -35,6 +37,9 @@ public class DiscordEventBinder(
         discordClientWrapper.DiscordSocketClient.Log -= OnLog;
         discordClientWrapper.DiscordSocketClient.SlashCommandExecuted -= OnSlashCommandExecuted;
         discordClientWrapper.DiscordSocketClient.GuildAvailable -= OnGuildAvailable;
+        discordClientWrapper.DiscordSocketClient.ButtonExecuted -= OnButtonExecuted;
+        discordClientWrapper.DiscordSocketClient.SelectMenuExecuted -= OnSelectMenuExecuted;
+        discordClientWrapper.DiscordSocketClient.UserJoined -= OnUserJoined;
     }
 
     private async Task OnSlashCommandExecuted(SocketSlashCommand slashCommand)
@@ -122,6 +127,23 @@ public class DiscordEventBinder(
                 "Ошибка при попытке обработать событие " +
                 "{discordClientWrapper.DiscordSocketClient.SelectMenuExecuted}",
                 nameof(discordClientWrapper.DiscordSocketClient.SelectMenuExecuted));
+        }
+    }
+
+    private async Task OnUserJoined(SocketGuildUser user)
+    {
+        try
+        {
+            await mediator.Publish(new UserJoinedNotification(user));
+        }
+        catch (Exception ex)
+        {
+
+            logger.LogError(
+                 ex,
+                 "Ошибка при попытке обработать событие " +
+                 "{discordClientWrapper.DiscordSocketClient.UserJoined}",
+                 nameof(discordClientWrapper.DiscordSocketClient.UserJoined));
         }
     }
 }

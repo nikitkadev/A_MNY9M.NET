@@ -9,6 +9,8 @@ using A_MNY9M.Application.Abstrations;
 using A_MNY9M.Integration.Confuguration;
 using A_MNY9M.Application.Configuration;
 using A_MNY9M.Integration.Discord.Client;
+using A_MNY9M.Integration.Discord.Options;
+using A_MNY9M.Integration.Discord.Managers;
 using A_MNY9M.Integration.Discord.Providers;
 using A_MNY9M.Integration.Discord.Abstractions;
 using A_MNY9M.Integration.Discord.Bootstrapping;
@@ -22,8 +24,9 @@ using A_MNY9M.Application.Features.System.BotInformation;
 using A_MNY9M.Application.Features.System.AnchorMessages;
 using A_MNY9M.Integration.Discord.Components.SelectionMenus;
 using A_MNY9M.Application.Features.System.AnchorMessages.HubMessage;
-using A_MNY9M.Integration.Discord.Managers;
-using A_MNY9M.Integration.Discord.Options;
+using A_MNY9M.Core.Interfaces.Services;
+using A_MNY9M.Integration.Discord.Services;
+using A_MNY9M.Integration.Discord.Messages;
 
 namespace A_MNY9M.Presentation.Hosting;
 
@@ -57,6 +60,8 @@ public static class DependencyInjection
     public static IServiceCollection AddCoreServices(
         this IServiceCollection services)
     {
+        services.AddSingleton<IUserService, DiscordGuildMemberService>();
+
         return services;
     }
 
@@ -89,16 +94,17 @@ public static class DependencyInjection
            });
 
         services.AddSingleton<IDiscordInitializer, DiscordInitializer>();
-        services.AddSingleton<IDiscordClientWrapper, DiscordClientWrapper>();
         services.AddSingleton<IDiscordEventBinder, DiscordEventBinder>();
-        services.AddSingleton<IDiscordSlashCommandRouter, DiscordSlashCommandRouter>();
+        services.AddSingleton<IDiscordRolesManager, DiscordRolesManager>();
+        services.AddSingleton<IDiscordClientWrapper, DiscordClientWrapper>();
         services.AddSingleton<IDiscordSlashCommandCreator, MlkSlashCommandCreator>();
-        services.AddSingleton<IDiscordResponseRenderer<GetBotInfoResult>, GetBotInfoSlashCommandResponder>();
-        services.AddSingleton<IDiscordResponseRenderer<SendHubMessageResult>, HubMessageCommandResponder>();
+        services.AddSingleton<IDiscordSlashCommandRouter, DiscordSlashCommandRouter>();
         services.AddSingleton<IDiscordV2ComponentsBuilder, DiscordV2ComponentsBuilder>();
         services.AddSingleton<IDiscordAnchorMessageUpdater, DiscordAnchorMessageUpdater>();
         services.AddSingleton<IDiscordSelectionMenusBuilder, DiscordSelectionMenusBuilder>();
-        services.AddSingleton<IDiscordRolesManager, DiscordRolesManager>();
+        services.AddSingleton<IDiscordResponseRenderer<SendHubMessageResult>, HubMessageCommandResponder>();
+        services.AddSingleton<IDiscordResponseRenderer<GetBotInfoResult>, GetBotInfoSlashCommandResponder>();
+        services.AddSingleton<IDiscordMessagesSender, DiscordMessagesSender>();
 
         services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(ApplicationMarker).Assembly));
         services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(IntegrationMarker).Assembly));

@@ -1,4 +1,6 @@
-﻿namespace A_MNY9M.Integration.Discord.Options;
+﻿using System.Security;
+
+namespace A_MNY9M.Integration.Discord.Options;
 
 public class MalenkieGuildOption
 {
@@ -9,6 +11,9 @@ public class MalenkieGuildOption
     public SelectedRolesDictionaries TestSelectedColorRoles { get; set; } = new();
     public AnchorMessages AnchorMessages { get; set; } = new();
     public Emotes Emotes { get; set; } = new();
+    public GuildRoles GuildRoles { get; set; } = new();
+    public Channels Channels { get; set; } = new();
+
 }
 
 public class SelectedRolesDictionaries
@@ -26,4 +31,17 @@ public class AnchorMessages
 public class Emotes
 {
     public Dictionary<string, ulong> ForGuildHub { get; set; } = [];
+    public Dictionary<string, ulong> ForWelcome { get; set; } = [];
+}
+
+public class GuildRoles
+{
+    public Dictionary<string, ulong> Hierarchy { get; set; } = [];
+}
+
+public class Channels
+{
+    public Dictionary<string, ulong> Text { get; set; } = [];
+    public Dictionary<string, ulong> Voice { get; set; } = [];
+
 }

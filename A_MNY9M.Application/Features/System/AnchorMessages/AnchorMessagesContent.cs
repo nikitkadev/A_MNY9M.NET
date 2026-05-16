@@ -6,6 +6,7 @@ public class AnchorMessagesContent
     public MessageContent Rules { get; set; } = new();
     public MessageContent Roles { get; set; } = new();
     public MessageContent ColorSwitch { get; set; } = new();
+    public MessageContent Joined { get; set; } = new();
 }
 
 public class MessageContent
@@ -20,4 +21,5 @@ public class MessageContent
 public class Additional
 {
     public string InviteLink { get; set; } = string.Empty;
+    public string HubLink { get; set; } = string.Empty;
 }

@@ -9,7 +9,8 @@ using A_MNY9M.Integration.Discord.Abstractions;
 namespace A_MNY9M.Integration.Discord.Managers;
 
 public class DiscordRolesManager(
-    IOptions<MalenkieGuildOption> malenkieOptions) : IDiscordRolesManager
+    IOptions<MalenkieGuildOption> malenkieOptions,
+    IDiscordClientWrapper clientWrapper) : IDiscordRolesManager
 {
     public async Task UploadUserSelectedCategoryRolesAsync(
         SocketGuildUser user, 
@@ -40,5 +41,13 @@ public class DiscordRolesManager(
         }
 
         await user.AddRoleAsync(ulong.Parse(values.ElementAt(0)));
+    }
+
+    public async Task SetRolesToUserAsync(
+        ulong userId, 
+        List<ulong> roleIds)
+    {
+        var user = clientWrapper.MlkGuild.GetUser(userId);
+        await user.AddRolesAsync(roleIds);
     }
 }
