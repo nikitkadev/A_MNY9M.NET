@@ -25,10 +25,9 @@ public class DiscordV2ComponentsBuilder(
                 container =>
                 {
                     container.WithTextDisplay(anchorMessages.Value.Hub.Title);
-                    container.WithTextDisplay(anchorMessages.Value.Hub.Header);
                     container.WithTextDisplay(string.Join("\n", anchorMessages.Value.Hub.Content));
 
-                    container.WithSeparator(SeparatorSpacingSize.Large);
+                    container.WithSeparator(SeparatorSpacingSize.Small);
 
                     container.WithActionRow(
                         row =>
@@ -97,7 +96,7 @@ public class DiscordV2ComponentsBuilder(
                     container.WithTextDisplay(anchorMessages.Value.Roles.Header);
                     container.WithTextDisplay(string.Join("\n", anchorMessages.Value.Roles.Content));
 
-                    container.WithSeparator(SeparatorSpacingSize.Large);
+                    container.WithSeparator(SeparatorSpacingSize.Small);
 
                     container.WithActionRow(
                         row =>
@@ -120,7 +119,7 @@ public class DiscordV2ComponentsBuilder(
                     container.WithTextDisplay(anchorMessages.Value.ColorSwitch.Header);
                     container.WithTextDisplay(string.Join("\n", anchorMessages.Value.ColorSwitch.Content));
 
-                    container.WithSeparator(SeparatorSpacingSize.Large);
+                    container.WithSeparator(SeparatorSpacingSize.Small);
 
                     container.WithActionRow(
                         row =>
