@@ -7,6 +7,7 @@ public class AnchorMessagesContent
     public MessageContent Roles { get; set; } = new();
     public MessageContent ColorSwitch { get; set; } = new();
     public MessageContent Joined { get; set; } = new();
+    public MessageContent Statistic { get; set; } = new();
 }
 
 public class MessageContent

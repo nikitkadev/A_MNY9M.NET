@@ -13,8 +13,10 @@ public static class ButtonsCustomIdConsts
     public const string Roles = "BUTTON_ROLES";
     public const string Colors = "BUTTON_COLORS";
     public const string TotemAnimal = "BUTTON_TOTEMANIMAL";
-    public const string AdvancedAnalysis = "BUTTONS_ADVANCED_ANALYSIS";
-    public const string Predict = "BUTTONS_PREDICT";
+    public const string AdvancedAnalysis = "BUTTON_ADVANCED_ANALYSIS";
+    public const string AirplaneRespect = "BUTTON_MODE_AIRPLANE_RESPECT";
+    public const string Statistic = "BUTTON_STATISTIC";
+    public const string Achiviemens = "BUTTON_ACHIVIEMENS";
 }
 
 public static class CommandNameConsts

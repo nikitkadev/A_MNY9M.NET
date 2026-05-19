@@ -11,6 +11,7 @@ using A_MNY9M.Integration.Discord.Events.Handlers.GuildAvaliable;
 using A_MNY9M.Integration.Discord.Events.Handlers.ButtonExecuted;
 using A_MNY9M.Integration.Discord.Events.Handlers.SelectMenuExecuted;
 using A_MNY9M.Integration.Discord.Events.Handlers.UserJoined;
+using A_MNY9M.Integration.Discord.Events.Handlers.UserVoiceStateUpdated;
 
 namespace A_MNY9M.Integration.Discord.Events.Registration;
 
@@ -29,6 +30,7 @@ public class DiscordEventBinder(
         discordClientWrapper.DiscordSocketClient.ButtonExecuted += OnButtonExecuted;
         discordClientWrapper.DiscordSocketClient.SelectMenuExecuted += OnSelectMenuExecuted;
         discordClientWrapper.DiscordSocketClient.UserJoined += OnUserJoined;
+        discordClientWrapper.DiscordSocketClient.UserVoiceStateUpdated += OnUserVoiceStateUpdated;
     }
 
     public void Unbind()
@@ -40,9 +42,11 @@ public class DiscordEventBinder(
         discordClientWrapper.DiscordSocketClient.ButtonExecuted -= OnButtonExecuted;
         discordClientWrapper.DiscordSocketClient.SelectMenuExecuted -= OnSelectMenuExecuted;
         discordClientWrapper.DiscordSocketClient.UserJoined -= OnUserJoined;
+        discordClientWrapper.DiscordSocketClient.UserVoiceStateUpdated -= OnUserVoiceStateUpdated;
     }
 
-    private async Task OnSlashCommandExecuted(SocketSlashCommand slashCommand)
+    private async Task OnSlashCommandExecuted(
+        SocketSlashCommand slashCommand)
     {
         try
         {
@@ -82,7 +86,8 @@ public class DiscordEventBinder(
         return Task.CompletedTask;
     }
 
-    private async Task OnGuildAvailable(SocketGuild socketGuild)
+    private async Task OnGuildAvailable(
+        SocketGuild socketGuild)
     {
         try
         {
@@ -98,7 +103,8 @@ public class DiscordEventBinder(
         }
     }
 
-    private async Task OnButtonExecuted(SocketMessageComponent component)
+    private async Task OnButtonExecuted(
+        SocketMessageComponent component)
     {
         try
         {
@@ -114,11 +120,13 @@ public class DiscordEventBinder(
         }
     }
 
-    private async Task OnSelectMenuExecuted(SocketMessageComponent component)
+    private async Task OnSelectMenuExecuted(
+        SocketMessageComponent component)
     {
         try
         {
-            await mediator.Publish(new SelectMenuExecutedNotification(component));
+            await mediator.Publish(new SelectMenuExecutedNotification(
+                component: component));
         }
         catch (Exception ex)
         {
@@ -130,20 +138,43 @@ public class DiscordEventBinder(
         }
     }
 
-    private async Task OnUserJoined(SocketGuildUser user)
+    private async Task OnUserJoined(
+        SocketGuildUser user)
     {
         try
         {
-            await mediator.Publish(new UserJoinedNotification(user));
+            await mediator.Publish(new UserJoinedNotification(
+                user: user));
         }
         catch (Exception ex)
         {
-
             logger.LogError(
                  ex,
                  "Ошибка при попытке обработать событие " +
                  "{discordClientWrapper.DiscordSocketClient.UserJoined}",
                  nameof(discordClientWrapper.DiscordSocketClient.UserJoined));
+        }
+    }
+
+    private async Task OnUserVoiceStateUpdated(
+        SocketUser user, 
+        SocketVoiceState oldState, 
+        SocketVoiceState newState)
+    {
+        try
+        {
+            await mediator.Publish(new UserVoiceStateUpdatedNotification(
+                user: user,
+                oldState: oldState,
+                newState: newState));
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(
+                 ex,
+                 "Ошибка при попытке обработать событие " +
+                 "{discordClientWrapper.DiscordSocketClient.UserVoiceStateUpdated}",
+                 nameof(discordClientWrapper.DiscordSocketClient.UserVoiceStateUpdated));
         }
     }
 }

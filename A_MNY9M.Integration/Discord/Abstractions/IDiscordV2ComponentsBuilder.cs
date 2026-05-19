@@ -8,6 +8,7 @@ public interface IDiscordV2ComponentsBuilder
     Task<MessageComponent> BuildRulesMessageComponentAsync();
     Task<MessageComponent> BuildRolesMessageComponentAsync();
     Task<MessageComponent> BuildColorSwitcherMessageComponentAsync();
+    Task<MessageComponent> BuildStatisticMessageComponentAsync();
     Task<MessageComponent> BuildWelcomeMessageComponent(string userMention);
     MessageComponent BuildDefaultMessageComponent(string text);
 }

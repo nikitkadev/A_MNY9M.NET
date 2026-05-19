@@ -32,6 +32,7 @@ public class Emotes
 {
     public Dictionary<string, ulong> ForGuildHub { get; set; } = [];
     public Dictionary<string, ulong> ForWelcome { get; set; } = [];
+    public Dictionary<string, ulong> ForStatistic { get; set; } = [];
 }
 
 public class GuildRoles
@@ -42,6 +43,11 @@ public class GuildRoles
 public class Channels
 {
     public Dictionary<string, ulong> Text { get; set; } = [];
-    public Dictionary<string, ulong> Voice { get; set; } = [];
+    public Voice Voice { get; set; } = new();
 
+}
+
+public class Voice
+{
+    public Dictionary<string, ulong> SessionSpawners { get; set; } = [];
 }

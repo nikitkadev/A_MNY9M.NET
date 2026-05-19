@@ -16,7 +16,7 @@ public class DiscordSelectionMenusBuilder(
     {
         return new SelectMenuBuilder()
             .WithCustomId(SelectionMenuIdConsts.RolesMenu)
-            .WithPlaceholder("Выберите желанную роли")
+            .WithPlaceholder("Выберите игровые роли")
             .WithMinValues(1)
             .WithMaxValues(6)
             .WithOptions([
@@ -95,19 +95,19 @@ public class DiscordSelectionMenusBuilder(
                         malenkieOptions.Value.TestSelectedColorRoles.EmoteIds["Yellow"])),
 
                 new SelectMenuOptionBuilder()
-                    .WithLabel("Malenkie Purple")
+                    .WithLabel("Malenkie Purple [Nitro]")
                     .WithValue(malenkieOptions.Value.TestSelectedColorRoles.RoleIds["Purple"].ToString())
                     .WithEmote(await clientWrapper.GetApplicationEmoteAsync(
                         malenkieOptions.Value.TestSelectedColorRoles.EmoteIds["Purple"])),
                     
                 new SelectMenuOptionBuilder()
-                    .WithLabel("Malenkie Pink")
+                    .WithLabel("Malenkie Pink [Nitro]")
                     .WithValue(malenkieOptions.Value.TestSelectedColorRoles.RoleIds["Pink"].ToString())
                     .WithEmote(await clientWrapper.GetApplicationEmoteAsync(
                         malenkieOptions.Value.TestSelectedColorRoles.EmoteIds["Pink"])),
 
                 new SelectMenuOptionBuilder()
-                    .WithLabel("Malenkie Silver")
+                    .WithLabel("Malenkie Silver [Nitro]")
                     .WithValue(malenkieOptions.Value.TestSelectedColorRoles.RoleIds["Silver"].ToString())
                     .WithEmote(await clientWrapper.GetApplicationEmoteAsync(
                         malenkieOptions.Value.TestSelectedColorRoles.EmoteIds["Silver"])),
@@ -115,7 +115,6 @@ public class DiscordSelectionMenusBuilder(
                  new SelectMenuOptionBuilder()
                     .WithLabel("удᴀᴧиᴛь цʙᴇᴛ")
                     .WithValue(SelectionMenuValues.RemoveAll)
-
             ]);
     }
 }

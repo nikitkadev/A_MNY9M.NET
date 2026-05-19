@@ -5,7 +5,7 @@ using Discord;
 using A_MNY9M.Integration.Discord.Abstractions;
 using A_MNY9M.Integration.Discord.Options;
 
-namespace A_MNY9M.Integration.Discord.AnchorMessages;
+namespace A_MNY9M.Integration.Discord.Messages;
 
 public class DiscordAnchorMessageUpdater(
     IOptions<MalenkieGuildOption> malenkieOptions,
@@ -15,11 +15,12 @@ public class DiscordAnchorMessageUpdater(
     public async Task UpdateAsync()
     {
         await UpdateWelcomeMessageAsync();
+        await UpdateStatisticMessageAsync();
     }
 
     private async Task UpdateWelcomeMessageAsync()
     {
-        var components = await discordComponentsBuilder.BuildHubMessageComponentAsync();
+        var component = await discordComponentsBuilder.BuildHubMessageComponentAsync();
         var channel = clientWrapper.MlkGuild.GetTextChannel(malenkieOptions.Value.AnchorMessages.ChannelsIn["HubDiscordId"]);
 
         if(channel is null)
@@ -32,13 +33,38 @@ public class DiscordAnchorMessageUpdater(
             await message.ModifyAsync(
                 async message =>
                 {
-                    message.Components = components;
+                    message.Components = component;
                 });
+
+            return;
         }
-        else
+
+        await channel.SendMessageAsync(
+            components: component);
+    }
+
+    private async Task UpdateStatisticMessageAsync()
+    {
+        var component = await discordComponentsBuilder.BuildStatisticMessageComponentAsync();
+        var channel = clientWrapper.MlkGuild.GetTextChannel(malenkieOptions.Value.AnchorMessages.ChannelsIn["HubDiscordId"]);
+
+        if(channel is null)
         {
-            await channel.SendMessageAsync(
-                components: components);
+            return;
         }
+
+        if(await channel.GetMessageAsync(malenkieOptions.Value.AnchorMessages.Ids["Statistic"]) is IUserMessage message)
+        {
+            await message.ModifyAsync(
+                async message =>
+                {
+                    message.Components = component;
+                });
+
+            return;
+        }
+
+        await channel.SendMessageAsync(
+            components: component);
     }
 }

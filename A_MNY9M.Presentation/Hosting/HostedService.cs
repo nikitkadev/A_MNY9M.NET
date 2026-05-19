@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-using A_MNY9M.Integration.Discord.Abstractions;
 using A_MNY9M.Presentation.Options;
+using A_MNY9M.Integration.Discord.Abstractions;
 
 namespace A_MNY9M.Presentation.Hosting;
 

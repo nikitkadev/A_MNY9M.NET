@@ -1,10 +1,11 @@
-﻿using A_MNY9M.Application.Features.System.AnchorMessages;
-using A_MNY9M.Core.Common;
-using A_MNY9M.Integration.Discord.Abstractions;
-using A_MNY9M.Integration.Discord.Options;
+﻿using Microsoft.Extensions.Options;
+
 using Discord;
-using Microsoft.Extensions.Options;
-using static System.Net.Mime.MediaTypeNames;
+
+using A_MNY9M.Core.Common;
+using A_MNY9M.Integration.Discord.Options;
+using A_MNY9M.Integration.Discord.Abstractions;
+using A_MNY9M.Application.Features.System.AnchorMessages;
 
 namespace A_MNY9M.Integration.Discord.Components.V2;
 
@@ -64,6 +65,45 @@ public class DiscordV2ComponentsBuilder(
         .Build();
     }
 
+    public async Task<MessageComponent> BuildStatisticMessageComponentAsync()
+    {
+        var skeletonEmote = await clientWrapper.GetApplicationEmoteAsync(malenkieOptions.Value.Emotes.ForStatistic["Skeleton"]);
+        var emeraldEmote = await clientWrapper.GetApplicationEmoteAsync(malenkieOptions.Value.Emotes.ForStatistic["Emerald"]);
+
+        return new ComponentBuilderV2()
+            .WithContainer(
+                container =>
+                {
+                    container.WithTextDisplay(anchorMessages.Value.Statistic.Title);
+                    container.WithTextDisplay(anchorMessages.Value.Statistic.Header);
+
+                    container.WithSeparator(spacing: SeparatorSpacingSize.Small);
+
+                    container.WithActionRow(
+                        row =>
+                        {
+                            row.WithButton(
+                                button =>
+                                {
+                                    button.WithLabel("Моя статистика");
+                                    button.WithStyle(ButtonStyle.Secondary);
+                                    button.WithCustomId(ButtonsCustomIdConsts.Statistic);
+                                    button.WithEmote(emeraldEmote);
+                                });
+
+                            row.WithButton(
+                                button =>
+                                {
+                                    button.WithLabel("Мои достижения");
+                                    button.WithStyle(ButtonStyle.Secondary);
+                                    button.WithCustomId(ButtonsCustomIdConsts.Achiviemens);
+                                    button.WithEmote(skeletonEmote);
+                                });
+                        });
+                })
+            .Build();
+    }
+
     public async Task<MessageComponent> BuildRulesMessageComponentAsync()
     {
         var rulesContent = string.Empty;
@@ -88,6 +128,7 @@ public class DiscordV2ComponentsBuilder(
     {
         var menu = await selectionMenusBuilder.GetRolesSetterMenuBuilderAsync();
 
+
         return new ComponentBuilderV2()
             .WithContainer(
                 container =>
@@ -103,6 +144,7 @@ public class DiscordV2ComponentsBuilder(
                         {
                             row.WithSelectMenu(menu);
                         });
+                    
                 })
             .Build();
     }
@@ -143,7 +185,8 @@ public class DiscordV2ComponentsBuilder(
 
     public async Task<MessageComponent> BuildWelcomeMessageComponent(string userMention)
     {
-        var chocolaSmugEmote = await clientWrapper.GetApplicationEmoteAsync(malenkieOptions.Value.Emotes.ForWelcome["Chocolasmug"]);
+        var coolDogieEmote = await clientWrapper.GetApplicationEmoteAsync(malenkieOptions.Value.Emotes.ForWelcome["CoolDogie"]);
+        var warDogieEmote = await clientWrapper.GetApplicationEmoteAsync(malenkieOptions.Value.Emotes.ForWelcome["WarDogie"]);
 
         return new ComponentBuilderV2()
             .WithContainer(
@@ -160,18 +203,19 @@ public class DiscordV2ComponentsBuilder(
                             row.WithButton(
                                 button =>
                                 {
-                                    button.WithLabel("Предсказание");
+                                    button.WithLabel("Респектнуть моду");
                                     button.WithStyle(ButtonStyle.Secondary);
-                                    button.WithEmote(chocolaSmugEmote);
-                                    button.WithCustomId(ButtonsCustomIdConsts.Predict);
+                                    button.WithEmote(coolDogieEmote);
+                                    button.WithCustomId(ButtonsCustomIdConsts.AirplaneRespect);
 
                                 });
 
                             row.WithButton(
                                 button =>
                                 {
-                                    button.WithLabel("Центр Malenkie");
+                                    button.WithLabel("Сообщество");
                                     button.WithStyle(ButtonStyle.Link);
+                                    button.WithEmote(warDogieEmote);
                                     button.WithUrl(anchorMessages.Value.Joined.Additional.HubLink);
                                 });
                         });
