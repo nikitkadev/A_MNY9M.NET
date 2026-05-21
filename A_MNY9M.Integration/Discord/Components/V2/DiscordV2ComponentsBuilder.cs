@@ -59,6 +59,7 @@ public class DiscordV2ComponentsBuilder(
                                     button.WithEmote(switchNameColorsEmote);
                                     button.WithCustomId(ButtonsCustomIdConsts.Colors);
                                 });
+
                         });
                 })
 
@@ -76,6 +77,7 @@ public class DiscordV2ComponentsBuilder(
                 {
                     container.WithTextDisplay(anchorMessages.Value.Statistic.Title);
                     container.WithTextDisplay(anchorMessages.Value.Statistic.Header);
+                    container.WithTextDisplay(anchorMessages.Value.Statistic.Footer);
 
                     container.WithSeparator(spacing: SeparatorSpacingSize.Small);
 

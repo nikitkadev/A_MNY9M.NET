@@ -17,6 +17,7 @@ public static class ButtonsCustomIdConsts
     public const string AirplaneRespect = "BUTTON_MODE_AIRPLANE_RESPECT";
     public const string Statistic = "BUTTON_STATISTIC";
     public const string Achiviemens = "BUTTON_ACHIVIEMENS";
+    public const string Rating = "BUTTON_RATING";
 }
 
 public static class CommandNameConsts
