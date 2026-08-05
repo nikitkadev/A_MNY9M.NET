@@ -1,0 +1,13 @@
+<Project>
+    <PropertyGroup Label="Project Information">
+        <Authors>nikitkadev</Authors>
+        <Company>MALENK1E</Company>
+        <Version>2.0.0</Version>
+        <Description>A_MNY9M - backend app for Discord guild Malenkie</Description>
+        <PackageTags>discord;bot;guild;backend app</PackageTags>
+        <RepositoryUrl>https://github.com/nikitkadev/Amnyam.NET</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/nikitkadev/Amnyam.NET</PackageProjectUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
+</Project>

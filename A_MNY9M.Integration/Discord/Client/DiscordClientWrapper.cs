@@ -1,0 +1,25 @@
+﻿using Microsoft.Extensions.Options;
+
+using Discord;
+using Discord.WebSocket;
+
+using A_MNY9M.Integration.Discord.Abstractions;
+using A_MNY9M.Integration.Discord.Options;
+
+namespace A_MNY9M.Integration.Discord.Client;
+
+public class DiscordClientWrapper(
+    IOptions<MalenkieGuildOption> malenkieOptions,
+    DiscordSocketClient discordSocketClient) : IDiscordClientWrapper
+{
+    public DiscordSocketClient DiscordSocketClient => discordSocketClient;
+    public SocketGuild MlkGuild => discordSocketClient.GetGuild(malenkieOptions.Value.DiscordId);
+    public async Task<Emote> GetApplicationEmoteAsync(ulong emoteDiscordId)
+    {
+        return await discordSocketClient.GetApplicationEmoteAsync(emoteDiscordId);
+    }
+    public SocketTextChannel GetSocketTextChannelAsync(ulong channelDiscordId)
+    {
+        return MlkGuild.GetTextChannel(channelDiscordId);
+    }
+}
