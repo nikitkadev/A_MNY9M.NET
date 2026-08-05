@@ -6,7 +6,7 @@ using Serilog;
 
 namespace A_MNY9M.Presentation.Hosting;
 
-public class Program
+public class App
 {
     public static async Task Main()
     {
@@ -22,12 +22,10 @@ public class Program
             optional: true, 
             reloadOnChange: true);
 
-        builder.Services.AddAppConfigurations(builder.Configuration);
         builder.Services.AddCoreServices();
         builder.Services.AddApplicationServices();
         builder.Services.AddInfrastructureServices();
         builder.Services.AddDiscordIntegrationServices();
-        builder.Services.AddPresentationServices();
 
         builder.Logging.ClearProviders();
         builder.Logging.AddSerilog();
