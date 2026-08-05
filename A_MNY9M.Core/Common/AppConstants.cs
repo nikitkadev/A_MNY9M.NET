@@ -53,3 +53,8 @@ public static class MarkdownEmote
     public const string Dot = "<:white_dot:1505130882837512292>";
     public const string CoolDogie = "<:cool_dogie:1505171307954835466>";
 }
+
+public static class EnvironmentVariables
+{
+    public const string DiscordTokenBot = "AMNYAM_DISCORD_TOKEN";
+}
