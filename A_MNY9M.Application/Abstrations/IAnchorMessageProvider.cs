@@ -2,7 +2,7 @@
 
 namespace A_MNY9M.Application.Abstrations;
 
-public interface IAnchorMessageProvider 
+public interface IAnchorMessageProvider
 {
     AnchorMessagesContent AnchorMessages { get; }
 }

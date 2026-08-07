@@ -1,3 +1,3 @@
-﻿namespace A_MNY9M.Integration.Confuguration;
+﻿namespace A_MNY9M.Integration;
 
 public class IntegrationMarker;

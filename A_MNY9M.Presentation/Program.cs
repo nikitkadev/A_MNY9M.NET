@@ -1,12 +1,13 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
 
 using Serilog;
 
-namespace A_MNY9M.Presentation.Hosting;
+using A_MNY9M.Presentation.ServiceCollectionExtensions;
 
-public class App
+namespace A_MNY9M.Presentation;
+
+public class Program
 {
     public static async Task Main()
     {
@@ -17,15 +18,7 @@ public class App
 
         var builder = Host.CreateApplicationBuilder();
 
-        builder.Configuration.AddJsonFile(
-            "Content/anchorMessages.json", 
-            optional: true, 
-            reloadOnChange: true);
-
-        builder.Services.AddCoreServices();
-        builder.Services.AddApplicationServices();
-        builder.Services.AddInfrastructureServices();
-        builder.Services.AddDiscordIntegrationServices();
+        builder.Services.AddDiscordServices();
 
         builder.Logging.ClearProviders();
         builder.Logging.AddSerilog();

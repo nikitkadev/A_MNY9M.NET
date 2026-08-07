@@ -3,7 +3,7 @@
 public class SystemInformationDto
 {
     public string AppName { get; set; } = string.Empty;
-    public string Version { get; set;  } = string.Empty;
+    public string Version { get; set; } = string.Empty;
     public string LastUpdateAt { get; set; } = string.Empty;
     public Author Author { get; set; } = new();
     public Company Company { get; set; } = new();

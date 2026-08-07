@@ -17,19 +17,19 @@ public class VoiceSession
         {
             var duration = (EndingAt ?? DateTimeOffset.UtcNow) - StartingAt;
 
-            return duration < TimeSpan.Zero 
-                ? TimeSpan.Zero 
+            return duration < TimeSpan.Zero
+                ? TimeSpan.Zero
                 : duration;
         }
     }
 
     public void End(DateTimeOffset endingAt)
     {
-        if(EndingAt is not null)
+        if (EndingAt is not null)
             return;
 
         EndingAt = endingAt;
     }
-   
+
     public bool IsActive => EndingAt is null;
 }
