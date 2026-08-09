@@ -11,14 +11,11 @@ public class Program
 {
     public static async Task Main()
     {
-        Log.Logger = new LoggerConfiguration()
-            .WriteTo.Console()
-            .WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Day)
-            .CreateLogger();
+        Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
 
         var builder = Host.CreateApplicationBuilder();
 
-        builder.Services.AddDiscordServices();
+        builder.Services.AddDiscordServices(builder.Configuration);
 
         builder.Logging.ClearProviders();
         builder.Logging.AddSerilog();

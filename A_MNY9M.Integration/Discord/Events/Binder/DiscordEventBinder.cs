@@ -2,17 +2,20 @@
 
 using Discord;
 using Discord.WebSocket;
-using Microsoft.IdentityModel.Tokens;
+
+using A_MNY9M.Integration.Discord.Services;
 
 namespace A_MNY9M.Integration.Discord.Events.Binder;
 
 public class DiscordEventBinder(
     ILogger<DiscordEventBinder> logger,
-    DiscordSocketClient discordSocketClient)
+    DiscordSocketClient discordSocketClient,
+    DiscordTextMessageSender discordTextMessageSender)
 {
     public void Bind()
     {
         discordSocketClient.Log += OnLog;
+        discordSocketClient.GuildAvailable += OnGuildAvailable;
     }
 
     public void Unbind()
@@ -87,6 +90,11 @@ public class DiscordEventBinder(
         }
 
         return Task.CompletedTask;
+    }
+
+    private async Task OnGuildAvailable(SocketGuild guild)
+    {
+        await discordTextMessageSender.SendRuleTextMessageAsync();
     }
 
 }

@@ -1,8 +1,7 @@
 <Solution>
   <Folder Name="/A_MNY9M Items/">
     <File Path=".editorconfig" />
-    <File Path=".gitignore" />
-    <File Path="ARCHITECTURE_GUIDE_DISCORD.md" /> 
+    <File Path=".gitignore" /> 
   </Folder>
   <Project Path="A_MNY9M.Core/A_MNY9M.Core.csproj" />
   <Project Path="A_MNY9M.Application/A_MNY9M.Application.csproj" />
