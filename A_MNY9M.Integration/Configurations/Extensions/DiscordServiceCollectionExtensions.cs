@@ -5,13 +5,12 @@ using Discord;
 using Discord.WebSocket;
 
 using A_MNY9M.Application;
-using A_MNY9M.Integration;
-using A_MNY9M.Integration.Discord.Options;
+using A_MNY9M.Integration.Hosting;
 using A_MNY9M.Integration.Discord.Services;
 using A_MNY9M.Integration.Discord.Events.Binder;
-using A_MNY9M.Integration.Hosting;
+using A_MNY9M.Integration.Configurations.Options;
 
-namespace A_MNY9M.Presentation.ServiceCollectionExtensions;
+namespace A_MNY9M.Integration.Configurations.Extensions;
 
 public static class DiscordServiceCollectionExtensions
 {
@@ -19,6 +18,8 @@ public static class DiscordServiceCollectionExtensions
         this IServiceCollection services,
         IConfiguration configuration)
     {
+        services.AddHostedService<DiscordHostingService>();
+
         services.AddSingleton<DiscordEventBinder>();
         services.AddSingleton<DiscordTextMessageSender>();
         services.AddSingleton(new DiscordSocketClient(new DiscordSocketConfig() { 
@@ -33,7 +34,6 @@ public static class DiscordServiceCollectionExtensions
         services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(ApplicationMarker).Assembly));
         services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(IntegrationMarker).Assembly));
 
-        services.AddHostedService<DiscordHostingService>();
         services.Configure<DiscordConfiguration>(configuration.GetSection("DiscordConfiguration"));
 
         return services;

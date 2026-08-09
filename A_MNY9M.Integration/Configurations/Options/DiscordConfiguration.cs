@@ -1,4 +1,4 @@
-namespace A_MNY9M.Integration.Discord.Options;
+namespace A_MNY9M.Integration.Configurations.Options;
 
 public sealed class DiscordConfiguration
 {

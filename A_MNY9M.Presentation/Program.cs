@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 using Serilog;
 
-using A_MNY9M.Presentation.ServiceCollectionExtensions;
+using A_MNY9M.Integration.Configurations.Extensions;
 
 namespace A_MNY9M.Presentation;
 
@@ -16,7 +16,6 @@ public class Program
         var builder = Host.CreateApplicationBuilder();
 
         builder.Services.AddDiscordServices(builder.Configuration);
-
         builder.Logging.ClearProviders();
         builder.Logging.AddSerilog();
 
