@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Discord;
 using Discord.WebSocket;
 
-using A_MNY9M.Core.Common;
+using A_MNY9M.Core.Common.Constants;
 using A_MNY9M.Integration.Discord.Events.Binder;
 
 namespace A_MNY9M.Integration.Hosting;
@@ -16,7 +16,7 @@ public sealed class DiscordHostingService(
     {
         await discordSocketClient.LoginAsync(
             tokenType: TokenType.Bot,
-            token: Environment.GetEnvironmentVariable(EnvironmentVariables.DiscordTokenBot));
+            token: Environment.GetEnvironmentVariable(DiscordConfigurationConstants.TestingTokenEnvironmentName));
 
         discordEventBinder.Bind();
 

@@ -2,7 +2,7 @@
 
 namespace A_MNY9M.Integration.Discord.Components.V2;
 
-public static class DefaultV2ComponentBuilder
+public static class DefaultTextV2ComponentBuild
 {
     public static MessageComponent Build(string message)
     {
