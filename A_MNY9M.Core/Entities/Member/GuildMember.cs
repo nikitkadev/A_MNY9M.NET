@@ -1,4 +1,4 @@
-﻿namespace A_MNY9M.Core.Entities.Guild.Member;
+﻿namespace A_MNY9M.Core.Entities.Member;
 
 public class GuildMember
 {

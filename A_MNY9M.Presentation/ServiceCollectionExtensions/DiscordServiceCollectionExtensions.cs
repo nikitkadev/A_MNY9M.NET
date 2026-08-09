@@ -5,8 +5,8 @@ using Discord.WebSocket;
 
 using A_MNY9M.Integration;
 using A_MNY9M.Integration.Hosting;
-using A_MNY9M.Application.Configuration;
 using A_MNY9M.Integration.Discord.Events.Binder;
+using A_MNY9M.Application;
 
 namespace A_MNY9M.Presentation.ServiceCollectionExtensions;
 
