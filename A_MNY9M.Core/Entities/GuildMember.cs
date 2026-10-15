@@ -12,6 +12,7 @@ public class GuildMember
 
     public bool IsBanned { get; private set; } 
     public bool IsMuted { get; private set; }
+    public bool IsBooster { get; set; }
 
     public DateTimeOffset JoinedAt { get; set; } = DateTimeOffset.UtcNow;
 
@@ -19,5 +20,4 @@ public class GuildMember
     public void Unban() => IsBanned = false;
     public void Mute() => IsMuted = true;
     public void Unmute() => IsMuted = false;
-
 }

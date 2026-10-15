@@ -3,26 +3,28 @@
 using Discord;
 using Discord.WebSocket;
 
-using A_MNY9M.Integration.Discord.Services;
+using A_MNY9M.Integration.Discord.Events.Handlers;
 
 namespace A_MNY9M.Integration.Discord.Events.Binder;
 
 public class DiscordEventBinder(
     ILogger<DiscordEventBinder> logger,
     DiscordSocketClient discordSocketClient,
-    DiscordTextMessageSender discordTextMessageSender)
+    UserVoiceStateUpdatedHandler userVoiceStateUpdatedHandler)
 {
     public void Bind()
     {
         discordSocketClient.Log += OnLog;
-        discordSocketClient.GuildAvailable += OnGuildAvailable;
+        discordSocketClient.GuildAvailable += GuildAvailabeHandler.HandleAsync;
+        discordSocketClient.UserVoiceStateUpdated += userVoiceStateUpdatedHandler.HandleAsync;
     }
 
     public void Unbind()
     {
         discordSocketClient.Log -= OnLog;
+        discordSocketClient.GuildAvailable -= GuildAvailabeHandler.HandleAsync;
+        discordSocketClient.UserVoiceStateUpdated -= userVoiceStateUpdatedHandler.HandleAsync;
     }
-
 
     private Task OnLog(LogMessage logMessage)
     {
@@ -90,11 +92,6 @@ public class DiscordEventBinder(
         }
 
         return Task.CompletedTask;
-    }
-
-    private async Task OnGuildAvailable(SocketGuild guild)
-    {
-        await discordTextMessageSender.SendRuleTextMessageAsync();
     }
 
 }
