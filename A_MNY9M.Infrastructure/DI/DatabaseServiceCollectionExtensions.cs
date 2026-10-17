@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using A_MNY9M.Infrastructure.Database;
-using A_MNY9M.Infrastructure.Repositories;
-using A_MNY9M.Infrastructure.Options.Models;
+using A_MNY9M.Infrastructure.Options;
+using A_MNY9M.Infrastructure.Services.Repositories;
+using A_MNY9M.Infrastructure.Services.Repositories.Channels.Voice;
 
 namespace A_MNY9M.Infrastructure.DI;
 
@@ -53,6 +54,7 @@ public static class DatabaseServiceCollectionExtensions
     private static void RegisterRepositories(
         IServiceCollection services)
     {
-        services.AddScoped<DiscordChannelRepository>();
+        services.AddScoped<VoiceChannelRepository>();
+        services.AddScoped<SourceVoiceChannelRepository>();
     }
 }

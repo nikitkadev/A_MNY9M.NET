@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace A_MNY9M.Infrastructure.Migrations
 {
     [DbContext(typeof(AmnyamDbContext))]
-    [Migration("20261015160255_InitMigration")]
+    [Migration("20261017065656_InitMigration")]
     partial class InitMigration
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace A_MNY9M.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.12")
+                .HasAnnotation("ProductVersion", "10.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -53,22 +53,29 @@ namespace A_MNY9M.Infrastructure.Migrations
 
             modelBuilder.Entity("A_MNY9M.Infrastructure.Database.Entities.Channels.SourceVoiceChannelDbEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("DiscordId")
                         .HasColumnType("numeric(20,0)")
                         .HasColumnName("discord_id");
+
+                    b.Property<decimal?>("GuildCategoryId")
+                        .HasColumnType("numeric(20,0)");
+
+                    b.Property<decimal>("InitiatorDiscordId")
+                        .HasColumnType("numeric(20,0)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("character varying(64)")
                         .HasColumnName("name");
+
+                    b.Property<DateTime?>("SetAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 

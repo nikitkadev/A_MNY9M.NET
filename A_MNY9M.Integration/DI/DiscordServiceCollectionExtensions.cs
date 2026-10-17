@@ -1,16 +1,16 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-using Discord;
-using Discord.WebSocket;
-
-using A_MNY9M.Application;
+﻿using A_MNY9M.Application;
+using A_MNY9M.Integration.Discord.Commands;
+using A_MNY9M.Integration.Discord.Commands.Handlers;
+using A_MNY9M.Integration.Discord.Content.Models;
+using A_MNY9M.Integration.Discord.Events.Binder;
+using A_MNY9M.Integration.Discord.Events.Handlers;
 using A_MNY9M.Integration.Hosting;
 using A_MNY9M.Integration.Services;
-using A_MNY9M.Integration.Discord.Events.Binder;
-using A_MNY9M.Integration.Discord.Content.Models;
-using A_MNY9M.Integration.Discord.Events.Handlers;
-using A_MNY9M.Integration.Discord.Commands;
+using Discord;
+using Discord.WebSocket;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection.Metadata;
 
 
 namespace A_MNY9M.Integration.DI;
@@ -83,12 +83,14 @@ public static class DiscordServiceCollectionExtensions
         services.AddSingleton<DiscordEventBinder>();
         services.AddSingleton<UserVoiceStateUpdatedHandler>();
         services.AddSingleton<GuildAvailabeHandler>();
+        services.AddSingleton<SlashCommandExecutedHandler>();
     }
 
     private static void RegisterDiscordCommands(
         IServiceCollection services)
     {
         services.AddSingleton<GuildCommandRegistrar>();
+        services.AddSingleton<SetSourceVoiceChannelCommandHandler>();
     }
 
 }

@@ -3,7 +3,7 @@
 using Discord.WebSocket;
 
 using A_MNY9M.Integration.Services;
-using A_MNY9M.Infrastructure.Repositories;
+using A_MNY9M.Infrastructure.Services.Repositories;
 
 namespace A_MNY9M.Integration.Discord.Events.Handlers;
 
@@ -19,7 +19,7 @@ public sealed class UserVoiceStateUpdatedHandler(
     {
         await using var scope = scopeFactory.CreateAsyncScope();
 
-        var discordChannelRepository = scope.ServiceProvider.GetRequiredService<DiscordChannelRepository>();
+        var discordChannelRepository = scope.ServiceProvider.GetRequiredService<VoiceChannelRepository>();
 
         var oldChannel = oldState.VoiceChannel;
         var newChannel = newState.VoiceChannel;
@@ -33,7 +33,9 @@ public sealed class UserVoiceStateUpdatedHandler(
             if (isAutoChannel)
             {
                 await oldState.VoiceChannel.DeleteAsync();
-                await discordChannelRepository.RemoveAutoVoiceChannelAsync(oldChannel.Id);
+                await discordChannelRepository.RemoveAutoVoiceChannelAsync(
+                    oldChannel.Id, 
+                    cancellationToken: default);
 
                 await logService.SendLogAsync(
                     $"Канал {oldState.VoiceChannel.Name} " +

@@ -1,4 +1,4 @@
-﻿namespace A_MNY9M.Infrastructure.Options.Models;
+﻿namespace A_MNY9M.Infrastructure.Options;
 
 public sealed class DatabaseOption
 {

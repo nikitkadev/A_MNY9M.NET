@@ -31,10 +31,12 @@ namespace A_MNY9M.Infrastructure.Migrations
                 name: "source_voice_channels",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
                     discord_id = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
-                    name = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false)
+                    InitiatorDiscordId = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    GuildCategoryId = table.Column<decimal>(type: "numeric(20,0)", nullable: true),
+                    name = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    SetAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {

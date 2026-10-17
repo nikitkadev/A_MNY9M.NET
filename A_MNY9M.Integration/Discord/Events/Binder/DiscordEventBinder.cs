@@ -11,6 +11,7 @@ public class DiscordEventBinder(
     ILogger<DiscordEventBinder> logger,
     DiscordSocketClient discordSocketClient,
     GuildAvailabeHandler guildAvailabeHandler,
+    SlashCommandExecutedHandler slashCommandExecutedHandler,
     UserVoiceStateUpdatedHandler userVoiceStateUpdatedHandler)
 {
     public void Bind()
@@ -18,6 +19,7 @@ public class DiscordEventBinder(
         discordSocketClient.Log += OnLog;
         discordSocketClient.GuildAvailable += guildAvailabeHandler.HandleAsync;
         discordSocketClient.UserVoiceStateUpdated += userVoiceStateUpdatedHandler.HandleAsync;
+        discordSocketClient.SlashCommandExecuted += slashCommandExecutedHandler.HandleAsync;
     }
 
     public void Unbind()
@@ -25,6 +27,8 @@ public class DiscordEventBinder(
         discordSocketClient.Log -= OnLog;
         discordSocketClient.GuildAvailable -= guildAvailabeHandler.HandleAsync;
         discordSocketClient.UserVoiceStateUpdated -= userVoiceStateUpdatedHandler.HandleAsync;
+        discordSocketClient.SlashCommandExecuted -= slashCommandExecutedHandler.HandleAsync;
+
     }
 
     private Task OnLog(LogMessage logMessage)
