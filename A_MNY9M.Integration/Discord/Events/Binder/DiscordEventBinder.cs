@@ -10,19 +10,20 @@ namespace A_MNY9M.Integration.Discord.Events.Binder;
 public class DiscordEventBinder(
     ILogger<DiscordEventBinder> logger,
     DiscordSocketClient discordSocketClient,
+    GuildAvailabeHandler guildAvailabeHandler,
     UserVoiceStateUpdatedHandler userVoiceStateUpdatedHandler)
 {
     public void Bind()
     {
         discordSocketClient.Log += OnLog;
-        discordSocketClient.GuildAvailable += GuildAvailabeHandler.HandleAsync;
+        discordSocketClient.GuildAvailable += guildAvailabeHandler.HandleAsync;
         discordSocketClient.UserVoiceStateUpdated += userVoiceStateUpdatedHandler.HandleAsync;
     }
 
     public void Unbind()
     {
         discordSocketClient.Log -= OnLog;
-        discordSocketClient.GuildAvailable -= GuildAvailabeHandler.HandleAsync;
+        discordSocketClient.GuildAvailable -= guildAvailabeHandler.HandleAsync;
         discordSocketClient.UserVoiceStateUpdated -= userVoiceStateUpdatedHandler.HandleAsync;
     }
 

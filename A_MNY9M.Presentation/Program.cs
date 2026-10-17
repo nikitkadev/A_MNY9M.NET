@@ -3,8 +3,8 @@ using Microsoft.Extensions.Logging;
 
 using Serilog;
 
-using A_MNY9M.Integration.Extensions;
-using A_MNY9M.Infrastructure.DependencyInjection;
+using A_MNY9M.Integration.DI;
+using A_MNY9M.Infrastructure.DI;
 
 namespace A_MNY9M.Presentation;
 
@@ -19,12 +19,10 @@ public class Program
         builder.Logging.ClearProviders();
         builder.Logging.AddSerilog();
 
-        builder.Configuration.AddDiscordJsonSources();
-
-        builder.Services.AddDiscordServices();
-        builder.Services.AddHandlerServices();
-        builder.Services.AddDbContextConfiguration(builder.Configuration);
-        builder.Services.ConfigureIntegrationOptions(builder.Configuration);
+        builder.Configuration.AddAmnyamDiscordConfiguration();
+        builder.Services.AddAmnyamDiscordServices(builder.Configuration);
+        builder.Services.AddAmnyamDatabaseServices(builder.Configuration);
+       
 
         await builder.Build().RunAsync();
     }

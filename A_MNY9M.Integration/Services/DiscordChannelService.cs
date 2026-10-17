@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
 
+using Discord.Rest;
 using Discord.WebSocket;
 
-using A_MNY9M.Infrastructure.Repositories;
 using A_MNY9M.Integration.Discord.Content.Models;
-using Discord.Rest;
 
 namespace A_MNY9M.Integration.Services;
 
