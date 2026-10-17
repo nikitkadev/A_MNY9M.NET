@@ -11,8 +11,11 @@ public static class SetSourceVoiceChannelCommandBuilder
             .WithDescription("Настраивает канал-источник для авто-лобби")
             .AddOption(
                 option: new SlashCommandOptionBuilder()
+                    .WithName("voice-channel")
+                    .WithDescription("Голосовой канал, который станет каналом-источником.")
                     .WithRequired(true)
-                    .WithType(ApplicationCommandOptionType.Channel))
+                    .WithType(ApplicationCommandOptionType.Channel)
+                    .AddChannelType(ChannelType.Voice))
             .Build();
 
     }

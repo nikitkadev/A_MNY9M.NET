@@ -10,6 +10,7 @@ using A_MNY9M.Integration.Services;
 using A_MNY9M.Integration.Discord.Events.Binder;
 using A_MNY9M.Integration.Discord.Content.Models;
 using A_MNY9M.Integration.Discord.Events.Handlers;
+using A_MNY9M.Integration.Discord.Commands;
 
 
 namespace A_MNY9M.Integration.DI;
@@ -21,6 +22,7 @@ public static class DiscordServiceCollectionExtensions
         IConfiguration configuration)
     {
         RegisterDiscordEventHandlers(services);
+        RegisterDiscordCommands(services);
         RegisterDiscordInitServices(services);
         RegisterAmnyamServices(services);
         ConfigureDiscordOptions(services, configuration);
@@ -80,6 +82,13 @@ public static class DiscordServiceCollectionExtensions
     {
         services.AddSingleton<DiscordEventBinder>();
         services.AddSingleton<UserVoiceStateUpdatedHandler>();
+        services.AddSingleton<GuildAvailabeHandler>();
+    }
+
+    private static void RegisterDiscordCommands(
+        IServiceCollection services)
+    {
+        services.AddSingleton<GuildCommandRegistrar>();
     }
 
 }

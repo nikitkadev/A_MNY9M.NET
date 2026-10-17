@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 
 using Serilog;
 
@@ -12,7 +12,14 @@ public class Program
 {
     public static async Task Main()
     {
-        Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File(
+                path: Path.Combine(
+                    AppContext.BaseDirectory,
+                    "logs/log.txt"),
+                rollingInterval: RollingInterval.Day)
+            .CreateLogger();
 
         var builder = Host.CreateApplicationBuilder();
 
