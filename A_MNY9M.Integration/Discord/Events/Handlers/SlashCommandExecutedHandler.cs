@@ -22,7 +22,7 @@ public sealed class SlashCommandExecutedHandler(
 
                 if(channelOption?.Value is not SocketVoiceChannel channel)
                 {
-                    await command.RespondAsync(
+                    await command.FollowupAsync(
                         "Не удалось получить голосовой канал.",
                         ephemeral: true);
 

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace A_MNY9M.Infrastructure.Migrations
 {
     [DbContext(typeof(AmnyamDbContext))]
-    [Migration("20261017065656_InitMigration")]
+    [Migration("20261017100019_InitMigration")]
     partial class InitMigration
     {
         /// <inheritdoc />
@@ -27,12 +27,10 @@ namespace A_MNY9M.Infrastructure.Migrations
 
             modelBuilder.Entity("A_MNY9M.Infrastructure.Database.Entities.Channels.AutoVoiceChannelDbEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")

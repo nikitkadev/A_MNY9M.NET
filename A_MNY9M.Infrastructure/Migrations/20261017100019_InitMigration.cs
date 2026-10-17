@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -16,8 +15,7 @@ namespace A_MNY9M.Infrastructure.Migrations
                 name: "auto_voice_channels",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
                     leader_discord_id = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
                     discord_id = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)

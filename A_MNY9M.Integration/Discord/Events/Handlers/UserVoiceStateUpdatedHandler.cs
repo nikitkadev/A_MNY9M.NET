@@ -3,7 +3,8 @@
 using Discord.WebSocket;
 
 using A_MNY9M.Integration.Services;
-using A_MNY9M.Infrastructure.Services.Repositories;
+using A_MNY9M.Infrastructure.Database.Entities.Channels;
+using A_MNY9M.Infrastructure.Services.Repositories.Channels.Voice;
 
 namespace A_MNY9M.Integration.Discord.Events.Handlers;
 
@@ -19,7 +20,8 @@ public sealed class UserVoiceStateUpdatedHandler(
     {
         await using var scope = scopeFactory.CreateAsyncScope();
 
-        var discordChannelRepository = scope.ServiceProvider.GetRequiredService<VoiceChannelRepository>();
+        var autoVoiceChannelRepository = scope.ServiceProvider.GetRequiredService<AutoVoiceChannelRepository>();
+        var sourceVoiceChannelRepository = scope.ServiceProvider.GetRequiredService<SourceVoiceChannelRepository>();
 
         var oldChannel = oldState.VoiceChannel;
         var newChannel = newState.VoiceChannel;
@@ -28,12 +30,14 @@ public sealed class UserVoiceStateUpdatedHandler(
             && oldChannel.ConnectedUsers.Count == 0
             && oldChannel.Id != newChannel?.Id)
         {
-            var isAutoChannel = await discordChannelRepository.IsAutoVoiceChannelAsync(oldState.VoiceChannel.Id);
+            var isAutoChannel = await autoVoiceChannelRepository
+                .IsAutoVoiceChannelAsync(oldState.VoiceChannel.Id);
 
             if (isAutoChannel)
             {
                 await oldState.VoiceChannel.DeleteAsync();
-                await discordChannelRepository.RemoveAutoVoiceChannelAsync(
+             
+                await autoVoiceChannelRepository.RemoveAutoVoiceChannelAsync(
                     oldChannel.Id, 
                     cancellationToken: default);
 
@@ -47,7 +51,8 @@ public sealed class UserVoiceStateUpdatedHandler(
         if (newChannel is not null
            && newChannel.Id != oldChannel?.Id)
         {
-            var isSourceChannel = await discordChannelRepository.IsSourceVoiceChannelAsync(newChannel.Id);
+            var isSourceChannel = await sourceVoiceChannelRepository
+                .IsSourceVoiceChannelAsync(newChannel.Id);
 
             if (isSourceChannel)
             {
@@ -60,8 +65,17 @@ public sealed class UserVoiceStateUpdatedHandler(
                         option.ChannelId = createdChannel.Id;
                     });
 
+                    await autoVoiceChannelRepository.AddAutoVoiceChannelAsync(
+                        new AutoVoiceChannelDbEntity()
+                        {
+                            CreatedAt = DateTime.UtcNow,
+                            DiscordId = createdChannel.Id,
+                            LeaderDiscordId = user.Id
+                        });
+
                     await logService.SendLogAsync(
-                        $"Пользователь {user.Mention} успешно создал авто-канал и был перемещен в него.");
+                        $"Пользователь {user.Mention} успешно создал авто-канал " +
+                        $"и был перемещен в него.");
                 }
             }
         }

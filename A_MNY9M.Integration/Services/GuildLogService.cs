@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 
 using Discord.WebSocket;
 
 using A_MNY9M.Integration.Discord.Content.Models;
-using Microsoft.Extensions.Logging;
 
 namespace A_MNY9M.Integration.Services;
 
@@ -14,11 +14,6 @@ public sealed class GuildLogService(
 {
     public async Task SendLogAsync(string message)
     {
-
-        logger.LogInformation(
-            "Переданный guildDiscordId: {guildId}", 
-            guildOption.Value.DiscordId);
-
         var guild = discordSocketClient.GetGuild(guildOption.Value.TestDiscordId);
 
         if(guild is null)

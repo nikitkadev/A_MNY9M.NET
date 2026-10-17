@@ -2,7 +2,7 @@
 
 public sealed class AutoVoiceChannelDbEntity
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public ulong LeaderDiscordId { get; set; }
     public ulong DiscordId { get; set; }

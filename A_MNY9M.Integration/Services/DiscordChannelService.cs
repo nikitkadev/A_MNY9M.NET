@@ -11,9 +11,11 @@ public sealed class DiscordChannelService(
     IOptions<GuildConfigurationOption> guildOption,
     DiscordSocketClient discordSocketClient)
 {
-    public async Task<RestVoiceChannel?> CreateAutoVoiceChannelAsync(ulong creatorId, string channelName = "mlk_default")
+    public async Task<RestVoiceChannel?> CreateAutoVoiceChannelAsync(
+        ulong creatorId, 
+        string channelName = "mlk_default")
     {
-        var guild = discordSocketClient.GetGuild(guildOption.Value.DiscordId);
+        var guild = discordSocketClient.GetGuild(guildOption.Value.TestDiscordId);
 
         var newChannel = await guild.CreateVoiceChannelAsync(
             name: channelName,
