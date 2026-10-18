@@ -1,4 +1,4 @@
-﻿using A_MNY9M.Integration.Discord.Commands.Content;
+﻿using A_MNY9M.Integration.Constants;
 using Discord;
 
 namespace A_MNY9M.Integration.Discord.Commands.Builders;

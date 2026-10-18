@@ -1,4 +1,4 @@
-﻿namespace A_MNY9M.Integration.Discord.Commands.Content;
+﻿namespace A_MNY9M.Integration.Constants;
 
 public sealed class DiscordCommandNames
 {

@@ -8,4 +8,6 @@ public sealed class GuildConfigurationOption
     public ulong TestDiscordId { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
+    public Dictionary<string, ulong> Channels { get; set; } = null!;
+
 }

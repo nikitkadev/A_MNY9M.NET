@@ -41,7 +41,7 @@ public sealed class UserVoiceStateUpdatedHandler(
                     oldChannel.Id,
                     cancellationToken: default);
 
-                await logService.SendLogAsync(
+                await logService.TrySendLogAsync(
                     $"Канал {oldState.VoiceChannel.Name} " +
                     $"с DiscordId {oldState.VoiceChannel.Id} " +
                     $"был автоматически удален.");
@@ -79,7 +79,7 @@ public sealed class UserVoiceStateUpdatedHandler(
                             LeaderDiscordId = user.Id
                         });
 
-                    await logService.SendLogAsync(
+                    await logService.TrySendLogAsync(
                         $"Пользователь {user.Mention} успешно создал авто-канал " +
                         $"и был перемещен в него.");
                 }
