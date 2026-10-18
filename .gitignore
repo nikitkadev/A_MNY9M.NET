@@ -419,3 +419,8 @@ FodyWeavers.xsd
 
 /A_MNY9M.Infrastructure/Providers/Data/
 /A_MNY9M.Presentation/appsettings.json
+/A_MNY9M.Integration/Discord/Content/Data/categories_configuration.json
+/A_MNY9M.Integration/Discord/Content/Data/channels_configuration.json
+/A_MNY9M.Integration/Discord/Content/Data/discord_configuration.json
+/A_MNY9M.Integration/Discord/Content/Data/guild_configuration.json
+/A_MNY9M.Integration/Discord/Content/Data/roles_configuration.json

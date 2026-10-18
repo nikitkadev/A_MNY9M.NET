@@ -5,11 +5,6 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
-
-	<ItemGroup>
-	  <None Include="Discord\Components\SelectionMenus\DiscordSelectionMenusBuilder.cs" />
-	  <None Include="Discord\Options\MalenkieGuildOption.cs" />
-	</ItemGroup>
 	
 	<ItemGroup Label="Projects">
 		<ProjectReference Include="..\A_MNY9M.Core\A_MNY9M.Core.csproj" />
@@ -19,6 +14,13 @@
 
 	<ItemGroup>
 		<PackageReference Include="Discord.Net" Version="3.18.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<None Include="Discord\Content\Data\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 	
 </Project>
