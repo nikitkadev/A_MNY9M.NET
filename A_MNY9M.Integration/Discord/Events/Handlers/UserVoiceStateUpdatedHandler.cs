@@ -36,9 +36,9 @@ public sealed class UserVoiceStateUpdatedHandler(
             if (isAutoChannel)
             {
                 await oldState.VoiceChannel.DeleteAsync();
-             
+
                 await autoVoiceChannelRepository.RemoveAutoVoiceChannelAsync(
-                    oldChannel.Id, 
+                    oldChannel.Id,
                     cancellationToken: default);
 
                 await logService.SendLogAsync(
@@ -56,7 +56,13 @@ public sealed class UserVoiceStateUpdatedHandler(
 
             if (isSourceChannel)
             {
-                var createdChannel = await discordChannelService.CreateAutoVoiceChannelAsync(user.Id);
+                var settings = await autoVoiceChannelRepository.GetAutoVoiceChannelSettingsAsync(
+                    userDiscordId: user.Id);
+
+                var createdChannel = await discordChannelService.CreateAutoVoiceChannelAsync(
+                    user.Id,
+                    newChannel.CategoryId,
+                    settings);
 
                 if (createdChannel is not null && user is SocketGuildUser guildUser)
                 {

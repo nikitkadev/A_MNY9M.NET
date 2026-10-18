@@ -91,6 +91,7 @@ public static class DiscordServiceCollectionExtensions
     {
         services.AddSingleton<GuildCommandRegistrar>();
         services.AddSingleton<SetSourceVoiceChannelCommandHandler>();
+        services.AddSingleton<SetAutoLobbySettingsCommandHandler>();
     }
 
 }

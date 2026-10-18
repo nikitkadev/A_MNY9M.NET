@@ -14,7 +14,7 @@ public sealed class SetSourceVoiceChannelCommandHandler(
 {
     public async Task<Result<Guid>> HandleAsync(SetSourceVoiceChannelParams request)
     {
-        var scope = serviceScopeFactory.CreateScope();
+        await using var scope = serviceScopeFactory.CreateAsyncScope();
         var repository = scope.ServiceProvider
             .GetRequiredService<SourceVoiceChannelRepository>();
 

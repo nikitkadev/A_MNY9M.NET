@@ -12,6 +12,21 @@ namespace A_MNY9M.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "auto_voice_channel_settings",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    user_discord_id = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    default_name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    user_limit = table.Column<int>(type: "integer", nullable: true),
+                    region = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_auto_voice_channel_settings", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "auto_voice_channels",
                 columns: table => new
                 {
@@ -45,6 +60,9 @@ namespace A_MNY9M.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "auto_voice_channel_settings");
+
             migrationBuilder.DropTable(
                 name: "auto_voice_channels");
 

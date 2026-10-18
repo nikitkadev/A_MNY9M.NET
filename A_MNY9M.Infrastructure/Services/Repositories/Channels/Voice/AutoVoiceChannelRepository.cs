@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using A_MNY9M.Infrastructure.Database;
+using A_MNY9M.Infrastructure.Models.Dtos;
 using A_MNY9M.Infrastructure.Database.Entities.Channels;
+using A_MNY9M.Infrastructure.Database.Entities.Settings;
+using A_MNY9M.Core.Common.Result;
 
 namespace A_MNY9M.Infrastructure.Services.Repositories.Channels.Voice;
 
@@ -58,5 +61,66 @@ public sealed class AutoVoiceChannelRepository(
             .AnyAsync(
                 x => x.DiscordId == autoVoiceChannelDiscordId,
                 cancellationToken: cancellationToken);
+    }
+
+    public async Task<AutoVoiceChannelSettingsDto> GetAutoVoiceChannelSettingsAsync(
+        ulong userDiscordId,
+        CancellationToken cancellationToken = default)
+    {
+        var settings = await dbContext
+            .Set<AutoVoiceChannelSettingsDbEntity>()
+            .Where(x => x.UserDiscordId == userDiscordId)
+            .Select(x => new AutoVoiceChannelSettingsDto(
+                Name: x.DefaultName,
+                UserLimit: x.UserLimit,
+                Region: x.Region))
+            .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+        if (settings is null)
+        {
+            return new AutoVoiceChannelSettingsDto(
+                "mlk_autovoice",
+                UserLimit: null,
+                Region: null);
+        }
+
+        return settings;
+    }
+
+    public async Task<Result<Guid>> SaveAutoVoiceChannelSettingsAsync(
+        AutoVoiceChannelSettingsDbEntity requestSettings,
+        CancellationToken cancellationToken = default)
+    {
+        var settings = await dbContext
+            .Set<AutoVoiceChannelSettingsDbEntity>()
+            .Where(x => x.UserDiscordId == requestSettings.UserDiscordId)
+            .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+        if(settings is not null)
+        {
+            settings.DefaultName = requestSettings.DefaultName;
+            settings.UserLimit = requestSettings.UserLimit;
+            settings.Region = requestSettings.Region;
+
+            await dbContext.SaveChangesAsync(
+                cancellationToken: cancellationToken);
+
+            return Result<Guid>.Success(
+                value: settings.Id,
+                clientMessage: "Настройки были заменены на новые.");
+        }
+
+        await dbContext
+            .Set<AutoVoiceChannelSettingsDbEntity>()
+            .AddAsync(
+                requestSettings, 
+                cancellationToken: cancellationToken);
+
+        await dbContext.SaveChangesAsync(
+            cancellationToken: cancellationToken);
+
+        return Result<Guid>.Success(
+            value: requestSettings.Id,
+            clientMessage: "Настройки для личной комнаты успешно установлены.");
     }
 }

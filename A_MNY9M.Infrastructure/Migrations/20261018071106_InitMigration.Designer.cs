@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace A_MNY9M.Infrastructure.Migrations
 {
     [DbContext(typeof(AmnyamDbContext))]
-    [Migration("20261017100019_InitMigration")]
+    [Migration("20261018071106_InitMigration")]
     partial class InitMigration
     {
         /// <inheritdoc />
@@ -78,6 +78,37 @@ namespace A_MNY9M.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("source_voice_channels", (string)null);
+                });
+
+            modelBuilder.Entity("A_MNY9M.Infrastructure.Database.Entities.Settings.AutoVoiceChannelSettingsDbEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("DefaultName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("default_name");
+
+                    b.Property<string>("Region")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("region");
+
+                    b.Property<decimal>("UserDiscordId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("user_discord_id");
+
+                    b.Property<int?>("UserLimit")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_limit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("auto_voice_channel_settings", (string)null);
                 });
 #pragma warning restore 612, 618
         }
